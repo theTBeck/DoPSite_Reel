@@ -5,9 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Reel — Cine Beck</title>
 <meta name="description" content="Reel — Cine Beck. Seleção cinematográfica em tela cheia." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="reel-page">
+
+<a class="site-back" href="index.html#hero" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar ao Hero">
+  <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+  <span class="site-back-volte">[VOLTE]</span>
+</a>
 
 <main class="reel-stage" id="reelStage" aria-label="Reel — Cine Beck">
   <video
@@ -15,17 +23,61 @@
     id="reelPageVideo"
     src="reel_v1_final_1080p.mp4"
     poster="assets/posters/reel-v4.jpg"
-    autoplay muted loop playsinline preload="auto"></video>
+    autoplay loop playsinline preload="auto"></video>
 </main>
+
+<button
+  type="button"
+  class="hero-audio-btn"
+  id="reelAudioBtn"
+  aria-pressed="false"
+  aria-label="Silenciar reel">
+  <span class="hero-audio-btn-ico" aria-hidden="true"></span>
+  <span class="hero-audio-btn-label">AUDIO</span>
+</button>
 
 <script>
 (() => {
   const v = document.getElementById("reelPageVideo");
+  const audioBtn = document.getElementById("reelAudioBtn");
+  const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
   if (!v) return;
-  v.muted = true;
+
+  const syncAudioBtn = () => {
+    if (!audioBtn) return;
+    const muted = !!v.muted;
+    audioBtn.classList.toggle("is-muted", muted);
+    audioBtn.setAttribute("aria-pressed", String(muted));
+    audioBtn.setAttribute("aria-label", muted ? "Ativar som do reel" : "Silenciar reel");
+    if (audioLabel) audioLabel.textContent = muted ? "MUTED" : "AUDIO";
+  };
+
   const play = () => v.play().catch(() => {});
-  play();
-  document.addEventListener("pointerdown", play, { once: true });
+
+  v.muted = false;
+  v.volume = 1;
+  syncAudioBtn();
+
+  v.play().catch(() => {
+    v.muted = true;
+    syncAudioBtn();
+    play();
+    const unlock = () => {
+      if (!v.paused) return;
+      play();
+    };
+    document.addEventListener("pointerdown", unlock, { once: true });
+    document.addEventListener("keydown", unlock, { once: true });
+  });
+
+  if (audioBtn) {
+    audioBtn.addEventListener("click", () => {
+      v.muted = !v.muted;
+      if (!v.muted) play();
+      syncAudioBtn();
+    });
+  }
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") window.location.href = "index.html#hero";
     if (e.key === " " || e.code === "Space") {
@@ -33,7 +85,10 @@
       if (v.paused) play();
       else v.pause();
     }
-    if (e.key.toLowerCase() === "m") v.muted = !v.muted;
+    if (e.key.toLowerCase() === "m") {
+      v.muted = !v.muted;
+      syncAudioBtn();
+    }
   });
 })();
 </script>

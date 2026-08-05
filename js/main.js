@@ -31,17 +31,44 @@ const spy = new IntersectionObserver(
 );
 sections.forEach((s) => spy.observe(s));
 
-/* ---------- vídeo do hero: toca no carregamento, sem botões ---------- */
+/* ---------- vídeo do hero: autoplay com trilha + mute manual ---------- */
 const video = document.getElementById("heroVideo");
-video.muted = true;
-const tryPlay = video.play();
-if (tryPlay) {
-  tryPlay.catch(() => {
-    const kick = () => {
-      video.play().catch(() => {});
-    };
-    document.addEventListener("pointerdown", kick, { once: true });
-    document.addEventListener("keydown", kick, { once: true });
+const audioBtn = document.getElementById("heroAudioBtn");
+const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
+
+const syncAudioBtn = () => {
+  if (!audioBtn) return;
+  const muted = !!video.muted;
+  audioBtn.classList.toggle("is-muted", muted);
+  audioBtn.setAttribute("aria-pressed", String(muted));
+  audioBtn.setAttribute("aria-label", muted ? "Ativar som do reel" : "Silenciar reel");
+  if (audioLabel) audioLabel.textContent = muted ? "MUTED" : "AUDIO";
+};
+
+const playHero = () => video.play().catch(() => {});
+
+video.muted = false;
+video.volume = 1;
+syncAudioBtn();
+
+video.play().catch(() => {
+  /* browsers block unmuted autoplay — keep picture, wait for mute toggle */
+  video.muted = true;
+  syncAudioBtn();
+  playHero();
+  const unlock = () => {
+    if (!video.paused) return;
+    playHero();
+  };
+  document.addEventListener("pointerdown", unlock, { once: true });
+  document.addEventListener("keydown", unlock, { once: true });
+});
+
+if (audioBtn) {
+  audioBtn.addEventListener("click", () => {
+    video.muted = !video.muted;
+    if (!video.muted) playHero();
+    syncAudioBtn();
   });
 }
 
