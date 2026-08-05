@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CINE BECK — Direção de Fotografia</title>
+<meta name="description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<a class="skip" href="#documentarios">pular para o conteúdo</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-head" id="siteHead">
+  <a class="brand" href="#hero" id="brandLink" aria-label="the lighting break, were is no sunshine — voltar ao início">
+    <span class="brand-name brand-name--short" aria-hidden="true">C.BECK</span>
+    <span class="brand-name brand-name--long">the lighting break, were is no sunshine</span>
+  </a>
+  <p class="head-slate" id="headSlate" aria-hidden="true">REEL 01 — HERO</p>
+  <nav class="head-nav" aria-label="navegação principal">
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="megaMenu" aria-haspopup="true">
+      <span class="menu-btn-txt">FILMES</span>
+      <span class="menu-btn-ico" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ============ MEGA MENU ============ -->
+<div class="mega" id="megaMenu" aria-hidden="true">
+  <div class="mega-inner">
+    <ul class="mega-list" role="menu">
+      <li><a role="menuitem" href="#hero" data-img="assets/stills/p01-01-2868x1512.jpg">
+        <span class="mega-no">01</span><span class="mega-label">Hero</span>
+        <span class="mega-desc">O ofício em movimento — reel em tela cheia</span></a></li>
+      <li><a role="menuitem" href="#documentarios" data-img="assets/stills/p10-01-1280x720.jpg">
+        <span class="mega-no">02</span><span class="mega-label">Documentários</span>
+        <span class="mega-desc">Histórias reais, imagem a serviço da verdade</span></a></li>
+      <li><a role="menuitem" href="#reality" data-img="assets/posters/honda-reality-01.jpg">
+        <span class="mega-no">03</span><span class="mega-label">Reality</span>
+        <span class="mega-desc">Honda Reality — três episódios</span></a></li>
+      <li><a role="menuitem" href="#curtas" data-img="assets/stills/p04-02-2159x1180.jpg">
+        <span class="mega-no">04</span><span class="mega-label">Curtas</span>
+        <span class="mega-desc">Ficção e videoclipes — narrativa concentrada</span></a></li>
+      <li><a role="menuitem" href="#publicidade" data-img="assets/stills/p09-01-1920x1082.jpg">
+        <span class="mega-no">05</span><span class="mega-label">Publicidade</span>
+        <span class="mega-desc">Branded content para grandes marcas</span></a></li>
+      <li><a role="menuitem" href="reel-v4.html" data-img="assets/posters/reel-v4.jpg">
+        <span class="mega-no">06</span><span class="mega-label">Reel — Cine Beck</span>
+        <span class="mega-desc">Filme reel em tela cheia</span></a></li>
+      <li><a role="menuitem" href="#landing" data-img="assets/stills/p07-01-4096x2160.jpg">
+        <span class="mega-no">07</span><span class="mega-label">Contato</span>
+        <span class="mega-desc">Bio, filmografia e canais — vamos filmar</span></a></li>
+    </ul>
+    <figure class="mega-preview" aria-hidden="true">
+      <img id="megaImg" src="assets/stills/p01-01-2868x1512.jpg" alt="" />
+      <figcaption class="mega-cap mono">CINE BECK — FILMOGRAFIA</figcaption>
+    </figure>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ============ SESSÃO HERO ============ -->
+  <section class="hero" id="hero" data-reel="01" data-label="HERO">
+    <video
+      class="hero-video"
+      id="heroVideo"
+      src="reel_v1_final_1080p.mp4"
+      poster="assets/frames/hero-poster.jpg"
+      autoplay muted loop playsinline preload="auto"></video>
+    <div class="hero-shade" aria-hidden="true"></div>
+
+    <div class="vf" aria-hidden="true">
+      <span class="vf-corners"><i></i><i></i><i></i><i></i></span>
+      <div class="vf-row vf-row-top">
+        <p class="vf-cell vf-rec"><b class="dot"></b>REC</p>
+        <p class="vf-cell vf-tc mono" id="timecode">00:00:00:00</p>
+        <p class="vf-cell vf-cam mono">A-CAM&nbsp;·&nbsp;f/1.8&nbsp;·&nbsp;ISO&nbsp;800</p>
+      </div>
+      <div class="vf-row vf-row-bottom">
+        <p class="vf-cell mono">REEL_01&nbsp;·&nbsp;85S&nbsp;·&nbsp;1080P</p>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow rv">IMAGEM&nbsp;/&nbsp;NARRATIVA</p>
+      <h1 class="hero-title rv">CINE&nbsp;BECK</h1>
+      <p class="hero-sub rv">DIREÇÃO DE FOTOGRAFIA</p>
+    </div>
+
+    <a class="vf-cell vf-reel-link" href="reel-v4.html" aria-label="Abrir Reel — Cine Beck">REEL</a>
+    <p class="hero-scroll mono" aria-hidden="true">SCROLL&nbsp;↓</p>
+  </section>
+
+  <!-- ============ SESSÃO DOCUMENTÁRIOS ============ -->
+  <section class="reel docs" id="documentarios" data-reel="02" data-label="DOCUMENTÁRIOS" aria-labelledby="docTitle">
+    <header class="reel-head rv">
+      <span class="reel-no">REEL&nbsp;02</span>
+      <h2 class="reel-title" id="docTitle">DOCUMENTÁRIOS</h2>
+      <span class="reel-meta">NON-FICTION&nbsp;·&nbsp;5&nbsp;OBRAS</span>
+    </header>
+    <div class="cards">
+      <a class="card rv" href="HistoriaDavi-doc.mp4" target="_blank" rel="noopener" aria-label="Assistir A História de Davi Santos">
+        <figure class="card-fig"><img src="assets/posters/historia-davi.jpg" alt="A História de Davi Santos — frame do documentário" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">A HISTÓRIA DE DAVI SANTOS</h3>
+          <p class="card-txt">Curta documental sobre o ciclista Davi Santos, atropelado na Av. Paulista por um motorista embriagado.</p>
+          <p class="card-meta mono">DOC&nbsp;·&nbsp;16&nbsp;MIN</p>
+        </div>
+      </a>
+      <a class="card rv" href="Amazon-Rally.mp4" target="_blank" rel="noopener" aria-label="Assistir Amazon Rally">
+        <figure class="card-fig"><img src="assets/posters/amazon-rally.jpg" alt="Amazon Rally — buggy no deserto" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">AMAZON RALLY</h3>
+          <p class="card-txt">Cobertura da expedição pela Amazônia — rios, selva e máquinas no limite.</p>
+          <p class="card-meta mono">DOC&nbsp;·&nbsp;EXPEDIÇÃO</p>
+        </div>
+      </a>
+      <a class="card rv" href="NikeFootbal.mp4" target="_blank" rel="noopener" aria-label="Assistir Nike Football Ripple Effects">
+        <figure class="card-fig"><img src="assets/posters/nike-football.jpg" alt="Nike Football — huddle da equipe feminina" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">NIKE FOOTBALL — RIPPLE EFFECTS</h3>
+          <p class="card-txt">Narrado por Andressa Alves: a carreira da jogadora e o crescimento do futebol feminino até a Arena Itaquera lotada.</p>
+          <p class="card-meta mono">DOC&nbsp;·&nbsp;6:45&nbsp;MIN</p>
+        </div>
+      </a>
+      <a class="card rv" href="Exilados-doc.mp4" target="_blank" rel="noopener" aria-label="Assistir Perseguição Sem Fronteiras">
+        <figure class="card-fig"><img src="assets/posters/perseguicao-sem-fronteiras.jpg" alt="Perseguição Sem Fronteiras — frame do documentário" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">PERSEGUIÇÃO SEM FRONTEIRAS</h3>
+          <p class="card-txt">Ali Sipahi, emigrante turco que se descobriu dissidente, exilado e perseguido em terras brasileiras — a espera de uma comunidade pela decisão da extradição.</p>
+          <p class="card-meta mono">DOC&nbsp;·&nbsp;1H</p>
+        </div>
+      </a>
+      <a class="card rv" href="Exilio.mp4" target="_blank" rel="noopener" aria-label="Assistir Exílio">
+        <figure class="card-fig"><img src="assets/posters/exilio.jpg" alt="Exílio — frame do documentário" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">EXÍLIO</h3>
+          <p class="card-txt">Documentário sobre deslocamento e identidade — a imagem como testemunho do que ficou para trás.</p>
+          <p class="card-meta mono">DOC&nbsp;·&nbsp;EXÍLIO</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ SESSÃO REALITY ============ -->
+  <section class="reel reality" id="reality" data-reel="03" data-label="REALITY" aria-labelledby="reaTitle">
+    <header class="reel-head rv">
+      <span class="reel-no">REEL&nbsp;03</span>
+      <h2 class="reel-title" id="reaTitle">REALITY</h2>
+      <span class="reel-meta">HONDA&nbsp;·&nbsp;3&nbsp;EPS</span>
+    </header>
+    <div class="cards">
+      <a class="card rv" href="Hondad-Reality01.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 01">
+        <figure class="card-fig"><img src="assets/posters/honda-reality-01.jpg" alt="Honda Reality 01 — frame do episódio" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">HONDA REALITY&nbsp;01</h3>
+          <p class="card-txt">Episódio 01 — ritmo, estrada e a marca em movimento.</p>
+          <p class="card-meta mono">REALITY&nbsp;·&nbsp;HONDA</p>
+        </div>
+      </a>
+      <a class="card rv" href="Honda-Reality02.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 02">
+        <figure class="card-fig"><img src="assets/posters/honda-reality-02.jpg" alt="Honda Reality 02 — frame do episódio" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">HONDA REALITY&nbsp;02</h3>
+          <p class="card-txt">Episódio 02 — personagens e paisagem sob a lente documental.</p>
+          <p class="card-meta mono">REALITY&nbsp;·&nbsp;HONDA</p>
+        </div>
+      </a>
+      <a class="card rv" href="Honda-Reality03.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 03">
+        <figure class="card-fig"><img src="assets/posters/honda-reality-03.jpg" alt="Honda Reality 03 — frame do episódio" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">HONDA REALITY&nbsp;03</h3>
+          <p class="card-txt">Episódio 03 — o fechamento da jornada em imagem e ritmo.</p>
+          <p class="card-meta mono">REALITY&nbsp;·&nbsp;HONDA</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ SESSÃO CURTAS ============ -->
+  <section class="reel curtas" id="curtas" data-reel="04" data-label="CURTAS" aria-labelledby="curTitle">
+    <header class="reel-head rv">
+      <span class="reel-no">REEL&nbsp;04</span>
+      <h2 class="reel-title" id="curTitle">CURTAS&nbsp;|&nbsp;FICÇÃO</h2>
+      <span class="reel-meta">NARRATIVA&nbsp;·&nbsp;3&nbsp;OBRAS</span>
+    </header>
+    <div class="cards">
+      <a class="card rv" href="SteveSpigel-curtasequenciq.mp4" target="_blank" rel="noopener" aria-label="Assistir Steve Spiegel">
+        <figure class="card-fig"><img src="assets/posters/steve-spiegel.jpg" alt="Steve Spiegel — silhuetas nos trilhos" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">STEVE SPIEGEL</h3>
+          <p class="card-txt">Curtametragem — um homem, um traje espacial e o silêncio entre dois mundos.</p>
+          <p class="card-meta mono">FICÇÃO&nbsp;·&nbsp;CURTA</p>
+        </div>
+      </a>
+      <a class="card rv" href="Coletanea.mp4" target="_blank" rel="noopener" aria-label="Assistir Coletânia de Histórias Extremamente Curtas">
+        <figure class="card-fig"><img src="assets/posters/coletanea.jpg" alt="Coletânia — cena no ginásio" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">COLETÂNIA DE HISTÓRIAS EXTREMAMENTE CURTAS</h3>
+          <p class="card-txt">Fragmentos de vida em miniatura — cada cena, um filme inteiro.</p>
+          <p class="card-meta mono">FICÇÃO&nbsp;·&nbsp;ANTOLOGIA</p>
+        </div>
+      </a>
+      <a class="card rv" href="Curta-desaparecido.mp4" target="_blank" rel="noopener" aria-label="Assistir Desaparecido">
+        <figure class="card-fig"><img src="assets/posters/desaparecido.jpg" alt="Desaparecido — rua à noite" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">DESAPARECIDO</h3>
+          <p class="card-txt">Curtametragem — a ausência como personagem central do quadro.</p>
+          <p class="card-meta mono">FICÇÃO&nbsp;·&nbsp;CURTA</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ SESSÃO PUBLICIDADE ============ -->
+  <section class="reel publi" id="publicidade" data-reel="05" data-label="PUBLICIDADE" aria-labelledby="pubTitle">
+    <header class="reel-head rv">
+      <span class="reel-no">REEL&nbsp;05</span>
+      <h2 class="reel-title" id="pubTitle">PUBLICIDADE</h2>
+      <span class="reel-meta">BRANDED&nbsp;CONTENT&nbsp;·&nbsp;21&nbsp;CAMPANHAS</span>
+    </header>
+    <div class="cards">
+      <a class="card rv" href="AdidasPharrel.mp4" target="_blank" rel="noopener" aria-label="Assistir Adidas Pharrel">
+        <figure class="card-fig"><img src="assets/posters/adidas-pharrel.jpg" alt="Adidas Pharrel — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">ADIDAS PHARREL</h3>
+          <p class="card-txt">Campanha esportiva — ritmo, atitude e movimento em quadro.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;ESPORTE</p>
+        </div>
+      </a>
+      <a class="card rv" href="AlphaRomeu.mp4" target="_blank" rel="noopener" aria-label="Assistir Alpha Romeu">
+        <figure class="card-fig"><img src="assets/posters/alpha-romeu.jpg" alt="Alpha Romeu — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">ALPHA ROMEU</h3>
+          <p class="card-txt">Filme automotivo — design, performance e presença de marca.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
+        </div>
+      </a>
+      <a class="card rv" href="Bancodobrasil.mp4" target="_blank" rel="noopener" aria-label="Assistir Banco do Brasil">
+        <figure class="card-fig"><img src="assets/posters/banco-do-brasil.jpg" alt="Banco do Brasil — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">BANCO DO BRASIL</h3>
+          <p class="card-txt">Campanha institucional — tradição e inovação em serviços bancários.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;INSTITUCIONAL</p>
+        </div>
+      </a>
+      <a class="card rv" href="Buscopam.mp4" target="_blank" rel="noopener" aria-label="Assistir Buscopam">
+        <figure class="card-fig"><img src="assets/posters/buscopan.jpg" alt="Buscopam — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">BUSCOPAM</h3>
+          <p class="card-txt">Filme de produto — alívio e bem-estar em situações do cotidiano.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FARMA</p>
+        </div>
+      </a>
+      <a class="card rv" href="Cannon-Amor.mp4" target="_blank" rel="noopener" aria-label="Assistir Cannon Amor">
+        <figure class="card-fig"><img src="assets/posters/cannon-amor.jpg" alt="Cannon Amor — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">CANNON AMOR</h3>
+          <p class="card-txt">Campanha — emoção e intimidade em luz cinematográfica.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BRANDED</p>
+        </div>
+      </a>
+      <a class="card rv" href="Cupnoodles.mp4" target="_blank" rel="noopener" aria-label="Assistir Cup Noodles">
+        <figure class="card-fig"><img src="assets/posters/cupnoodles.jpg" alt="Cup Noodles — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">CUP NOODLES</h3>
+          <p class="card-txt">Filme de produto — sabor, cor e apetite em close-up.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FOOD</p>
+        </div>
+      </a>
+      <a class="card rv" href="Epson-canudos.mp4" target="_blank" rel="noopener" aria-label="Assistir Epson Canudos">
+        <figure class="card-fig"><img src="assets/posters/epson-canudos.jpg" alt="Epson Canudos — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">EPSON CANUDOS</h3>
+          <p class="card-txt">Campanha Epson — tecnologia e narrativa visual no cotidiano.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;TECH</p>
+        </div>
+      </a>
+      <a class="card rv" href="Granola.mp4" target="_blank" rel="noopener" aria-label="Assistir Granola">
+        <figure class="card-fig"><img src="assets/posters/granola.jpg" alt="Granola — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">GRANOLA</h3>
+          <p class="card-txt">Filme de alimento — textura, luz e frescor em tabletop.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FOOD</p>
+        </div>
+      </a>
+      <a class="card rv" href="Hidro.mp4" target="_blank" rel="noopener" aria-label="Assistir Hidro">
+        <figure class="card-fig"><img src="assets/posters/hidro.jpg" alt="Hidro — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">HIDRO</h3>
+          <p class="card-txt">Campanha — água, movimento e atmosfera em imagem limpa.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BRANDED</p>
+        </div>
+      </a>
+      <a class="card rv" href="Indaia.mp4" target="_blank" rel="noopener" aria-label="Assistir Indaiá">
+        <figure class="card-fig"><img src="assets/posters/indaia.jpg" alt="Indaiá — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">INDAIÁ</h3>
+          <p class="card-txt">Campanha de bebidas — refrescância e sabor em close-up.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BEBIDAS</p>
+        </div>
+      </a>
+      <a class="card rv" href="Jeep-RENEGADE.mp4" target="_blank" rel="noopener" aria-label="Assistir Jeep Renegade">
+        <figure class="card-fig"><img src="assets/posters/jeep-renegade.jpg" alt="Jeep Renegade — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">JEEP RENEGADE</h3>
+          <p class="card-txt">Filme de lançamento — aventura urbana com DNA off-road.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
+        </div>
+      </a>
+      <a class="card rv" href="JeepGladiator.mp4" target="_blank" rel="noopener" aria-label="Assistir Jeep Gladiator">
+        <figure class="card-fig"><img src="assets/posters/jeep-gladiator.jpg" alt="Jeep Gladiator — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">JEEP GLADIATOR</h3>
+          <p class="card-txt">Campanha off-road — potência, terreno e presença da marca.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
+        </div>
+      </a>
+      <a class="card rv" href="Marisa.mp4" target="_blank" rel="noopener" aria-label="Assistir Marisa">
+        <figure class="card-fig"><img src="assets/posters/marisa.jpg" alt="Marisa — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">MARISA</h3>
+          <p class="card-txt">Campanha de moda — luz, textura e movimento em estúdio.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;MODA</p>
+        </div>
+      </a>
+      <a class="card rv" href="Ora3GWM.mp4" target="_blank" rel="noopener" aria-label="Assistir Ora GWM">
+        <figure class="card-fig"><img src="assets/posters/ora-gwm.jpg" alt="Ora GWM — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">ORA GWM</h3>
+          <p class="card-txt">Filme automotivo — design elétrico e presença contemporânea.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
+        </div>
+      </a>
+      <a class="card rv" href="Rico%20Joao.mp4" target="_blank" rel="noopener" aria-label="Assistir Rico João">
+        <figure class="card-fig"><img src="assets/posters/rico-joao.jpg" alt="Rico João — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">RICO JOÃO</h3>
+          <p class="card-txt">Campanha — personagem, humor e ritmo publicitário.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BRANDED</p>
+        </div>
+      </a>
+      <a class="card rv" href="Serasa-detetive.mp4" target="_blank" rel="noopener" aria-label="Assistir Serasa Detetive">
+        <figure class="card-fig"><img src="assets/posters/serasa-detetive.jpg" alt="Serasa Detetive — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">SERASA — DETETIVE</h3>
+          <p class="card-txt">Filme de produto — segurança e inteligência em dados financeiros.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FINTECH</p>
+        </div>
+      </a>
+      <a class="card rv" href="Sonic-TELECINE.mp4" target="_blank" rel="noopener" aria-label="Assistir Sonic Telecine">
+        <figure class="card-fig"><img src="assets/posters/sonic-telecine.jpg" alt="Sonic Telecine — frame do institucional" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">SONIC TELECINE</h3>
+          <p class="card-txt">Institucional da casa de pós-produção — cor, textura e finalização.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;PÓS-PRODUÇÃO</p>
+        </div>
+      </a>
+      <a class="card rv" href="SonyBRAVIA.mp4" target="_blank" rel="noopener" aria-label="Assistir Sony Bravia">
+        <figure class="card-fig"><img src="assets/posters/sony-bravia.jpg" alt="Sony Bravia — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">SONY BRAVIA</h3>
+          <p class="card-txt">Campanha de lançamento da linha OLED — cores, contraste e movimento em 4K.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;TV</p>
+        </div>
+      </a>
+      <a class="card rv" href="TataExa.mp4" target="_blank" rel="noopener" aria-label="Assistir Tata Exa">
+        <figure class="card-fig"><img src="assets/posters/tata-exa.jpg" alt="Tata Exa — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">TATA EXA</h3>
+          <p class="card-txt">Filme automotivo — presença, estrada e assinatura da marca.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
+        </div>
+      </a>
+      <a class="card rv" href="Tim-Genius.mp4" target="_blank" rel="noopener" aria-label="Assistir Tim Genius">
+        <figure class="card-fig"><img src="assets/posters/tim-genius.jpg" alt="Tim Genius — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">TIM GENIUS</h3>
+          <p class="card-txt">Campanha de conectividade — velocidade e inovação em telecom.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;TELECOM</p>
+        </div>
+      </a>
+      <a class="card rv" href="Zaxy.mp4" target="_blank" rel="noopener" aria-label="Assistir Zaxy">
+        <figure class="card-fig"><img src="assets/posters/zaxy.jpg" alt="Zaxy — frame da campanha" loading="lazy" /></figure>
+        <div class="card-body">
+          <h3 class="card-title">ZAXY</h3>
+          <p class="card-txt">Campanha de moda — estilo, cor e movimento em quadro.</p>
+          <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;MODA</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ SESSÃO REEL — PÁGINA INTEIRA (limpo) ============ -->
+  <section class="reel-fullpage" id="reel" data-reel="06" data-label="REEL — CINE BECK" aria-label="Reel — Cine Beck">
+    <a class="reel-fullpage-hit" href="reel-v4.html" aria-label="Abrir Reel — Cine Beck em tela cheia">
+      <video
+        class="reel-fullpage-video"
+        id="reelMasterVideo"
+        src="reel_v1_final_1080p.mp4"
+        poster="assets/posters/reel-v4.jpg"
+        autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  </section>
+
+  <!-- ============ SESSÃO CONTATO ============ -->
+  <section class="reel landing" id="landing" data-reel="07" data-label="CONTATO" aria-labelledby="lanTitle">
+    <header class="reel-head rv">
+      <span class="reel-no">REEL&nbsp;07</span>
+      <h2 class="reel-title" id="lanTitle">CONTATO</h2>
+      <span class="reel-meta">BIO&nbsp;·&nbsp;FILMOGRAFIA</span>
+    </header>
+
+    <div class="bio">
+      <blockquote class="bio-quote rv">
+        <p>“A criação da imagem deve ocorrer independentemente da câmera. Durante a leitura do argumento ou roteiro, uma narrativa visual deve se desenvolver, composta por fotogramas. A imagem é um dos alicerces que acompanham e sustentam a trama.”</p>
+      </blockquote>
+      <div class="bio-txt rv">
+        <p>Cinematógrafo formado pela <strong>Accademia Internazionale di Cinema</strong>, em Cinecittà, Roma, e pós-graduado em Artes pela <strong>Accademia di Belle Arti di Roma</strong>.</p>
+        <p>Com extensa experiência na indústria cinematográfica, contribuiu para produções aclamadas como <em>“The Exorcist — The Absolute Beginning”</em> sob direção de <strong>Vittorio Storaro</strong>, <em>“The Grimm Brothers”</em> de <strong>Terry Gilliam</strong> e <em>“The Dreamers”</em> de <strong>Bernardo Bertolucci</strong>.</p>
+        <p>Desde 2008, atua como Diretor de Fotografia e Fotógrafo Jornalista, dividindo seu tempo entre a <strong>Europa</strong> e a <strong>América do Sul</strong>. Fluente em italiano e inglês, com o português como língua materna.</p>
+      </div>
+    </div>
+
+    <div class="contact rv">
+      <a class="contact-row" href="https://www.instagram.com/cine.beck/" target="_blank" rel="noopener">
+        <span class="contact-key mono">INSTAGRAM</span>
+        <span class="contact-val">@cine.beck</span>
+      </a>
+      <a class="contact-row" href="https://vimeo.com/thiagobeck" target="_blank" rel="noopener">
+        <span class="contact-key mono">VIMEO</span>
+        <span class="contact-val">vimeo.com/thiagobeck</span>
+      </a>
+      <p class="contact-row contact-row--static">
+        <span class="contact-key mono">BASE</span>
+        <span class="contact-val">Europa&nbsp;↔&nbsp;América&nbsp;do&nbsp;Sul</span>
+      </p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <h2 class="foot-title">CINE&nbsp;BECK</h2>
+    <p class="foot-line mono">DIREÇÃO DE FOTOGRAFIA — IMAGEM / NARRATIVA</p>
+    <p class="foot-copy mono">© 2026 CINE BECK · TODOS OS DIREITOS RESERVADOS</p>
+  </footer>
+
+</main>
+
+<script src="js/main.js"></script>
+</body>
+</html>

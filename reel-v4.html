@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reel — Cine Beck</title>
+<meta name="description" content="Reel — Cine Beck. Seleção cinematográfica em tela cheia." />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="reel-page">
+
+<main class="reel-stage" id="reelStage" aria-label="Reel — Cine Beck">
+  <video
+    class="reel-stage-video"
+    id="reelPageVideo"
+    src="reel_v1_final_1080p.mp4"
+    poster="assets/posters/reel-v4.jpg"
+    autoplay muted loop playsinline preload="auto"></video>
+</main>
+
+<script>
+(() => {
+  const v = document.getElementById("reelPageVideo");
+  if (!v) return;
+  v.muted = true;
+  const play = () => v.play().catch(() => {});
+  play();
+  document.addEventListener("pointerdown", play, { once: true });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") window.location.href = "index.html#hero";
+    if (e.key === " " || e.code === "Space") {
+      e.preventDefault();
+      if (v.paused) play();
+      else v.pause();
+    }
+    if (e.key.toLowerCase() === "m") v.muted = !v.muted;
+  });
+})();
+</script>
+</body>
+</html>
