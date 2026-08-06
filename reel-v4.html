@@ -12,10 +12,10 @@
 </head>
 <body class="reel-page">
 
-<a class="site-back" href="index.html#hero" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar ao Hero">
+<button type="button" class="site-back" id="reelBackBtn" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar à página anterior">
   <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
   <span class="site-back-volte">[VOLTE]</span>
-</a>
+</button>
 
 <main class="reel-stage" id="reelStage" aria-label="Reel — Cine Beck">
   <video
@@ -41,7 +41,15 @@
   const v = document.getElementById("reelPageVideo");
   const audioBtn = document.getElementById("reelAudioBtn");
   const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
+  const backBtn = document.getElementById("reelBackBtn");
   if (!v) return;
+
+  const goBack = () => {
+    v.pause();
+    v.muted = true;
+    if (window.history.length > 1) window.history.back();
+    else window.location.href = "index.html#hero";
+  };
 
   const syncAudioBtn = () => {
     if (!audioBtn) return;
@@ -70,6 +78,11 @@
     document.addEventListener("keydown", unlock, { once: true });
   });
 
+  backBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    goBack();
+  });
+
   if (audioBtn) {
     audioBtn.addEventListener("click", () => {
       v.muted = !v.muted;
@@ -79,7 +92,7 @@
   }
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") window.location.href = "index.html#hero";
+    if (e.key === "Escape") goBack();
     if (e.key === " " || e.code === "Space") {
       e.preventDefault();
       if (v.paused) play();
@@ -89,6 +102,11 @@
       v.muted = !v.muted;
       syncAudioBtn();
     }
+  });
+
+  window.addEventListener("pagehide", () => {
+    v.pause();
+    v.muted = true;
   });
 })();
 </script>

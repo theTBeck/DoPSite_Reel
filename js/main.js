@@ -67,7 +67,13 @@ video.play().catch(() => {
 if (audioBtn) {
   audioBtn.addEventListener("click", () => {
     video.muted = !video.muted;
-    if (!video.muted) playHero();
+    if (!video.muted) {
+      document.querySelectorAll("video, audio").forEach((media) => {
+        if (media === video) return;
+        try { media.muted = true; media.pause(); } catch (_) {}
+      });
+      playHero();
+    }
     syncAudioBtn();
   });
 }
@@ -153,10 +159,10 @@ filmPlayer.className = "film-player";
 filmPlayer.id = "filmPlayer";
 filmPlayer.setAttribute("hidden", "");
 filmPlayer.innerHTML = `
-  <a class="site-back" href="#hero" id="filmPlayerBack" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar">
+  <button type="button" class="site-back" id="filmPlayerBack" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar à página anterior">
     <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
     <span class="site-back-volte">[VOLTE]</span>
-  </a>
+  </button>
   <video class="film-player-video" id="filmPlayerVideo" playsinline preload="auto"></video>
   <button type="button" class="hero-audio-btn" id="filmPlayerAudioBtn" aria-pressed="false" aria-label="Silenciar filme">
     <span class="hero-audio-btn-ico" aria-hidden="true"></span>
@@ -169,6 +175,7 @@ const filmVideo = document.getElementById("filmPlayerVideo");
 const filmBack = document.getElementById("filmPlayerBack");
 const filmAudioBtn = document.getElementById("filmPlayerAudioBtn");
 const filmAudioLabel = filmAudioBtn?.querySelector(".hero-audio-btn-label");
+let filmReturnY = 0;
 
 const syncFilmAudioBtn = () => {
   if (!filmAudioBtn) return;
@@ -179,23 +186,49 @@ const syncFilmAudioBtn = () => {
   if (filmAudioLabel) filmAudioLabel.textContent = muted ? "MUTED" : "AUDIO";
 };
 
+/** Desliga áudio de qualquer outra mídia (só a página/filme atual pode soar). */
+const silenceOtherAudio = (except) => {
+  document.querySelectorAll("video, audio").forEach((media) => {
+    if (except && media === except) return;
+    try {
+      media.muted = true;
+      media.pause();
+    } catch (_) {}
+  });
+  if (except !== video && video) syncAudioBtn();
+};
+
 const closeFilmPlayer = () => {
   filmVideo.pause();
+  filmVideo.muted = true;
   filmVideo.removeAttribute("src");
   filmVideo.load();
   filmPlayer.classList.remove("is-open");
   filmPlayer.setAttribute("hidden", "");
+  document.body.classList.remove("film-open");
   document.body.style.overflow = "";
+  window.scrollTo(0, filmReturnY);
+  /* volta à página anterior: hero só imagem, sem áudio interferindo */
+  if (video) {
+    video.muted = true;
+    syncAudioBtn();
+    playHero();
+  }
 };
 
 const openFilmPlayer = (src) => {
+  filmReturnY = window.scrollY || 0;
+  silenceOtherAudio(null);
   filmPlayer.removeAttribute("hidden");
   filmPlayer.classList.add("is-open");
+  document.body.classList.add("film-open");
   document.body.style.overflow = "hidden";
+  filmVideo.pause();
   filmVideo.src = src;
   filmVideo.muted = false;
   filmVideo.volume = 1;
   syncFilmAudioBtn();
+  silenceOtherAudio(filmVideo);
   filmVideo.play().catch(() => {
     filmVideo.muted = true;
     syncFilmAudioBtn();
@@ -205,20 +238,29 @@ const openFilmPlayer = (src) => {
 
 filmBack?.addEventListener("click", (e) => {
   e.preventDefault();
+  e.stopPropagation();
   closeFilmPlayer();
 });
 
-filmAudioBtn?.addEventListener("click", () => {
+filmAudioBtn?.addEventListener("click", (e) => {
+  e.stopPropagation();
   filmVideo.muted = !filmVideo.muted;
-  if (!filmVideo.muted) filmVideo.play().catch(() => {});
+  if (!filmVideo.muted) {
+    silenceOtherAudio(filmVideo);
+    filmVideo.play().catch(() => {});
+  }
   syncFilmAudioBtn();
 });
 
 document.addEventListener("keydown", (e) => {
   if (!filmPlayer.classList.contains("is-open")) return;
-  if (e.key === "Escape") closeFilmPlayer();
+  if (e.key === "Escape") {
+    e.preventDefault();
+    closeFilmPlayer();
+  }
   if (e.key.toLowerCase() === "m") {
     filmVideo.muted = !filmVideo.muted;
+    if (!filmVideo.muted) silenceOtherAudio(filmVideo);
     syncFilmAudioBtn();
   }
 });
@@ -233,6 +275,7 @@ mp4Cards.forEach((card) => {
     const href = card.getAttribute("href");
     if (!href || !/\.mp4($|\?)/i.test(href)) return;
     e.preventDefault();
+    e.stopPropagation();
     openFilmPlayer(href);
   });
 });
@@ -242,32 +285,41 @@ if (finePointer && !reduceMotion) {
     const fig = card.querySelector(".card-fig");
     if (!fig) return;
 
-    const video = document.createElement("video");
-    video.className = "card-video";
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute("muted", "");
-    video.setAttribute("playsinline", "");
-    video.preload = "none";
-    fig.appendChild(video);
+    const preview = document.createElement("video");
+    preview.className = "card-video";
+    preview.muted = true;
+    preview.loop = true;
+    preview.playsInline = true;
+    preview.setAttribute("muted", "");
+    preview.setAttribute("playsinline", "");
+    preview.preload = "none";
+    fig.appendChild(preview);
 
     let armed = false;
 
     card.addEventListener("mouseenter", () => {
+      if (filmPlayer.classList.contains("is-open")) return;
       if (!armed) {
-        video.src = card.getAttribute("data-preview") || card.getAttribute("href");
+        preview.src = card.getAttribute("data-preview") || card.getAttribute("href");
         armed = true;
       }
+      preview.muted = true;
       card.classList.add("is-playing");
-      const play = video.play();
+      const play = preview.play();
       if (play) play.catch(() => card.classList.remove("is-playing"));
     });
 
     card.addEventListener("mouseleave", () => {
       card.classList.remove("is-playing");
-      video.pause();
-      try { video.currentTime = 0; } catch (_) {}
+      preview.pause();
+      try { preview.currentTime = 0; } catch (_) {}
     });
   });
 }
+
+/* Ao sair para reel-v4: desliga áudio da home para não interferir */
+document.querySelectorAll('a[href="reel-v4.html"]').forEach((link) => {
+  link.addEventListener("click", () => {
+    silenceOtherAudio(null);
+  });
+});

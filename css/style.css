@@ -131,6 +131,15 @@ a { color: inherit; text-decoration: none; }
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.65);
   transition: color 0.2s ease, opacity 0.2s ease;
 }
+button.site-back {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
 .site-back:hover { color: var(--bone); opacity: 0.92; }
 .site-back:hover .site-back-volte { color: var(--bone); }
 .site-back-phrase { color: inherit; }
@@ -487,11 +496,16 @@ a.card {
 .film-player {
   position: fixed;
   inset: 0;
-  z-index: 90;
+  z-index: 220; /* acima do site-head (100) para o [VOLTE] receber clique */
   background: #000;
   display: none;
 }
 .film-player.is-open { display: block; }
+body.film-open .site-head,
+body.film-open .mega {
+  visibility: hidden;
+  pointer-events: none;
+}
 .film-player-video {
   position: absolute;
   inset: 0;
@@ -499,9 +513,20 @@ a.card {
   height: 100%;
   object-fit: contain;
   background: #000;
+  z-index: 0;
 }
-.film-player .site-back { z-index: 92; }
-.film-player .hero-audio-btn { z-index: 92; position: fixed; }
+.film-player .site-back {
+  z-index: 230;
+  pointer-events: auto;
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+.film-player .hero-audio-btn { z-index: 230; position: fixed; pointer-events: auto; }
 
 /* Contato — separado do Reel */
 .landing {
