@@ -147,12 +147,98 @@ if (reelMaster) {
   document.addEventListener("pointerdown", tryReel, { once: true });
 }
 
-/* ---------- cards: autoplay no hover (sem mudar tamanho) ---------- */
+/* ---------- player fullscreen: clique no card = autoplay com áudio ---------- */
+const filmPlayer = document.createElement("div");
+filmPlayer.className = "film-player";
+filmPlayer.id = "filmPlayer";
+filmPlayer.setAttribute("hidden", "");
+filmPlayer.innerHTML = `
+  <a class="site-back" href="#hero" id="filmPlayerBack" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar">
+    <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+    <span class="site-back-volte">[VOLTE]</span>
+  </a>
+  <video class="film-player-video" id="filmPlayerVideo" playsinline preload="auto"></video>
+  <button type="button" class="hero-audio-btn" id="filmPlayerAudioBtn" aria-pressed="false" aria-label="Silenciar filme">
+    <span class="hero-audio-btn-ico" aria-hidden="true"></span>
+    <span class="hero-audio-btn-label">AUDIO</span>
+  </button>
+`;
+document.body.appendChild(filmPlayer);
+
+const filmVideo = document.getElementById("filmPlayerVideo");
+const filmBack = document.getElementById("filmPlayerBack");
+const filmAudioBtn = document.getElementById("filmPlayerAudioBtn");
+const filmAudioLabel = filmAudioBtn?.querySelector(".hero-audio-btn-label");
+
+const syncFilmAudioBtn = () => {
+  if (!filmAudioBtn) return;
+  const muted = !!filmVideo.muted;
+  filmAudioBtn.classList.toggle("is-muted", muted);
+  filmAudioBtn.setAttribute("aria-pressed", String(muted));
+  filmAudioBtn.setAttribute("aria-label", muted ? "Ativar som do filme" : "Silenciar filme");
+  if (filmAudioLabel) filmAudioLabel.textContent = muted ? "MUTED" : "AUDIO";
+};
+
+const closeFilmPlayer = () => {
+  filmVideo.pause();
+  filmVideo.removeAttribute("src");
+  filmVideo.load();
+  filmPlayer.classList.remove("is-open");
+  filmPlayer.setAttribute("hidden", "");
+  document.body.style.overflow = "";
+};
+
+const openFilmPlayer = (src) => {
+  filmPlayer.removeAttribute("hidden");
+  filmPlayer.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+  filmVideo.src = src;
+  filmVideo.muted = false;
+  filmVideo.volume = 1;
+  syncFilmAudioBtn();
+  filmVideo.play().catch(() => {
+    filmVideo.muted = true;
+    syncFilmAudioBtn();
+    filmVideo.play().catch(() => {});
+  });
+};
+
+filmBack?.addEventListener("click", (e) => {
+  e.preventDefault();
+  closeFilmPlayer();
+});
+
+filmAudioBtn?.addEventListener("click", () => {
+  filmVideo.muted = !filmVideo.muted;
+  if (!filmVideo.muted) filmVideo.play().catch(() => {});
+  syncFilmAudioBtn();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (!filmPlayer.classList.contains("is-open")) return;
+  if (e.key === "Escape") closeFilmPlayer();
+  if (e.key.toLowerCase() === "m") {
+    filmVideo.muted = !filmVideo.muted;
+    syncFilmAudioBtn();
+  }
+});
+
+/* ---------- cards: preview mute no hover + clique abre player com áudio ---------- */
 const finePointer = window.matchMedia("(pointer: fine)").matches;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mp4Cards = document.querySelectorAll("a.card[href*='.mp4']");
+
+mp4Cards.forEach((card) => {
+  card.addEventListener("click", (e) => {
+    const href = card.getAttribute("href");
+    if (!href || !/\.mp4($|\?)/i.test(href)) return;
+    e.preventDefault();
+    openFilmPlayer(href);
+  });
+});
 
 if (finePointer && !reduceMotion) {
-  document.querySelectorAll("a.card[href$='.mp4']").forEach((card) => {
+  mp4Cards.forEach((card) => {
     const fig = card.querySelector(".card-fig");
     if (!fig) return;
 
