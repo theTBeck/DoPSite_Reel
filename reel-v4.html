@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reel — Cine Beck</title>
+<meta name="description" content="Reel — Cine Beck. Seleção cinematográfica em tela cheia." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="reel-page">
+
+<button type="button" class="site-back" id="reelBackBtn" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar à página anterior">
+  <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+  <span class="site-back-volte">[VOLTE]</span>
+</button>
+
+<main class="reel-stage" id="reelStage" aria-label="Reel — Cine Beck">
+  <video
+    class="reel-stage-video"
+    id="reelPageVideo"
+    src="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/reel_v1_final_1080p.mp4"
+    poster="assets/posters/reel-v4.jpg"
+    autoplay loop playsinline preload="auto"></video>
+</main>
+
+<button
+  type="button"
+  class="hero-audio-btn"
+  id="reelAudioBtn"
+  aria-pressed="false"
+  aria-label="Silenciar reel">
+  <span class="hero-audio-btn-ico" aria-hidden="true"></span>
+  <span class="hero-audio-btn-label">AUDIO</span>
+</button>
+
+<script>
+(() => {
+  const v = document.getElementById("reelPageVideo");
+  const audioBtn = document.getElementById("reelAudioBtn");
+  const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
+  const backBtn = document.getElementById("reelBackBtn");
+  if (!v) return;
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  let ctx = null;
+  let gain = null;
+  let wanted = true;
+
+  const getCtx = () => {
+    if (!AudioCtx) return null;
+    if (!ctx) {
+      try { ctx = new AudioCtx({ latencyHint: "playback" }); }
+      catch (_) { try { ctx = new AudioCtx(); } catch (__) { return null; } }
+    }
+    return ctx;
+  };
+
+  const applyLevel = () => {
+    if (gain) {
+      gain.gain.value = wanted ? 1 : 0;
+      v.muted = false;
+      v.volume = 1;
+    } else {
+      v.muted = false;
+      v.volume = wanted ? 1 : 0;
+    }
+  };
+
+  try {
+    if (v.src && /^https?:/i.test(v.src) && !v.src.startsWith(location.origin)) {
+      v.crossOrigin = "anonymous";
+    }
+    const c = getCtx();
+    if (c) {
+      const srcNode = c.createMediaElementSource(v);
+      gain = c.createGain();
+      srcNode.connect(gain);
+      gain.connect(c.destination);
+    }
+  } catch (_) { gain = null; }
+
+  v.playsInline = true;
+  v.preload = "auto";
+  v.defaultPlaybackRate = 1;
+  v.playbackRate = 1;
+
+  const resumeCtx = () => {
+    const c = getCtx();
+    if (c && c.state === "suspended") c.resume().catch(() => {});
+  };
+
+  const goBack = () => {
+    wanted = false;
+    applyLevel();
+    v.pause();
+    if (window.history.length > 1) window.history.back();
+    else window.location.href = "index.html#hero";
+  };
+
+  const syncAudioBtn = () => {
+    if (!audioBtn) return;
+    const muted = !wanted;
+    audioBtn.classList.toggle("is-muted", muted);
+    audioBtn.setAttribute("aria-pressed", String(muted));
+    audioBtn.setAttribute("aria-label", muted ? "Ativar som do reel" : "Silenciar reel");
+    if (audioLabel) audioLabel.textContent = muted ? "MUTED" : "AUDIO";
+  };
+
+  const play = () => {
+    resumeCtx();
+    return v.play().catch(() => {});
+  };
+
+  wanted = true;
+  v.muted = false;
+  applyLevel();
+  syncAudioBtn();
+
+  play().catch(() => {
+    wanted = false;
+    v.muted = true;
+    applyLevel();
+    syncAudioBtn();
+    play();
+    const unlock = () => {
+      resumeCtx();
+      v.muted = false;
+      wanted = true;
+      applyLevel();
+      syncAudioBtn();
+      play();
+    };
+    document.addEventListener("pointerdown", unlock, { once: true });
+    document.addEventListener("keydown", unlock, { once: true });
+  });
+
+  backBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    goBack();
+  });
+
+  if (audioBtn) {
+    audioBtn.addEventListener("click", () => {
+      resumeCtx();
+      wanted = !wanted;
+      v.muted = false;
+      applyLevel();
+      if (wanted) play();
+      syncAudioBtn();
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") goBack();
+    if (e.key === " " || e.code === "Space") {
+      e.preventDefault();
+      if (v.paused) play();
+      else v.pause();
+    }
+    if (e.key.toLowerCase() === "m") {
+      wanted = !wanted;
+      v.muted = false;
+      applyLevel();
+      syncAudioBtn();
+    }
+  });
+
+  window.addEventListener("pagehide", () => {
+    wanted = false;
+    applyLevel();
+    v.pause();
+  });
+})();
+</script>
+</body>
+</html>

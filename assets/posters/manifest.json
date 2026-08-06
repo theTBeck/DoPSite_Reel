@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-08-04T01:04:31.847Z",
+  "results": [
+    {
+      "slug": "historia-davi",
+      "file": "HistoriaDavi-doc.mp4",
+      "poster": "assets/posters/historia-davi.jpg",
+      "t": 456.6236,
+      "score": 179.1985496920999
+    },
+    {
+      "slug": "amazon-rally",
+      "file": "Amazon-Rally.mp4",
+      "poster": "assets/posters/amazon-rally.jpg",
+      "t": 21.1176,
+      "score": 162.2603187902137
+    },
+    {
+      "slug": "nike-football",
+      "file": "NikeFootbal.mp4",
+      "poster": "assets/posters/nike-football.jpg",
+      "t": 236.2572,
+      "score": 136.60565151114128
+    },
+    {
+      "slug": "fifa-sub20",
+      "file": "FifaFootbal.mp4",
+      "poster": "assets/posters/fifa-sub20.jpg",
+      "t": 55.81739999999999,
+      "score": 124.04685224781649
+    },
+    {
+      "slug": "expedicao-canudos",
+      "file": "Epson-canudos.mp4",
+      "poster": "assets/posters/expedicao-canudos.jpg",
+      "t": 24.665599999999998,
+      "score": 121.3396871918859
+    },
+    {
+      "slug": "steve-spiegel",
+      "file": "SteveSpigel-curtasequenciq.mp4",
+      "poster": "assets/posters/steve-spiegel.jpg",
+      "t": 73.8156,
+      "score": 111.7663950091748
+    },
+    {
+      "slug": "coletanea",
+      "file": "Coletanea.mp4",
+      "poster": "assets/posters/coletanea.jpg",
+      "t": 301.3,
+      "score": 104.05544446729787
+    },
+    {
+      "slug": "desaparecido",
+      "file": "Curta-desaparecido.mp4",
+      "poster": "assets/posters/desaparecido.jpg",
+      "t": 841.491,
+      "score": 59.94326217421164
+    },
+    {
+      "slug": "sony-bravia",
+      "file": "SonyBRAVIA.mp4",
+      "poster": "assets/posters/sony-bravia.jpg",
+      "t": 39.41,
+      "score": 79.30973228558982
+    },
+    {
+      "slug": "jeep-renegade",
+      "file": "Jeep-RENEGADE.mp4",
+      "poster": "assets/posters/jeep-renegade.jpg",
+      "t": 62.7096,
+      "score": 129.96136462970622
+    },
+    {
+      "slug": "sonic-telecine",
+      "file": "Sonic-TELECINE.mp4",
+      "poster": "assets/posters/sonic-telecine.jpg",
+      "t": 29.9874,
+      "score": 118.24296706647013
+    },
+    {
+      "slug": "banco-do-brasil",
+      "file": "Bancodobrasil.mp4",
+      "poster": "assets/posters/banco-do-brasil.jpg",
+      "t": 37.282399999999996,
+      "score": 159.82659854514716
+    },
+    {
+      "slug": "tim-genius",
+      "file": "Tim-Genius.mp4",
+      "poster": "assets/posters/tim-genius.jpg",
+      "t": 9.7196,
+      "score": 121.05676295633485
+    },
+    {
+      "slug": "serasa-detetive",
+      "file": "Serasa-detetive.mp4",
+      "poster": "assets/posters/serasa-detetive.jpg",
+      "t": 33.2746,
+      "score": 156.87169684037963
+    },
+    {
+      "slug": "marisa",
+      "file": "Marisa.mp4",
+      "poster": "assets/posters/marisa.jpg",
+      "t": 29.895799999999998,
+      "score": 164.91174170509572
+    },
+    {
+      "slug": "buscopan",
+      "file": "Buscopam.mp4",
+      "poster": "assets/posters/buscopan.jpg",
+      "t": 27.6552,
+      "score": 146.55218399030468
+    },
+    {
+      "slug": "indaia",
+      "file": "Indaia.mp4",
+      "poster": "assets/posters/indaia.jpg",
+      "t": 13.8184,
+      "score": 194.64811762492602
+    }
+  ]
+}
