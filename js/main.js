@@ -31,13 +31,85 @@ const spy = new IntersectionObserver(
 );
 sections.forEach((s) => spy.observe(s));
 
-/* ---------- vídeo do hero: autoplay com trilha + mute manual ---------- */
+/* ---------- áudio estável p/ Bluetooth (A2DP): gain/volume, sem mute brusco ---------- */
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let sharedAudioCtx = null;
+const getAudioCtx = () => {
+  if (!AudioCtx) return null;
+  if (!sharedAudioCtx) {
+    try {
+      sharedAudioCtx = new AudioCtx({ latencyHint: "playback" });
+    } catch (_) {
+      try { sharedAudioCtx = new AudioCtx(); } catch (__) { return null; }
+    }
+  }
+  return sharedAudioCtx;
+};
+
+/** Controla nível sem toggles de .muted (evita renegociação/corte no Bluetooth). */
+const attachStableAudio = (el) => {
+  if (!el) return null;
+  if (el._stable) return el._stable;
+  const bus = {
+    el,
+    gain: null,
+    wanted: true,
+    apply() {
+      const on = !!bus.wanted;
+      if (bus.gain) {
+        bus.gain.gain.value = on ? 1 : 0;
+        el.muted = false;
+        el.volume = 1;
+      } else {
+        el.muted = false;
+        el.volume = on ? 1 : 0;
+      }
+    },
+    setWanted(on) {
+      bus.wanted = !!on;
+      bus.apply();
+    },
+    isAudible() {
+      return !!bus.wanted;
+    },
+  };
+
+  try {
+    if (el.src && /^https?:/i.test(el.src) && !el.src.startsWith(location.origin)) {
+      el.crossOrigin = "anonymous";
+    }
+    const ctx = getAudioCtx();
+    if (ctx) {
+      const srcNode = ctx.createMediaElementSource(el);
+      bus.gain = ctx.createGain();
+      srcNode.connect(bus.gain);
+      bus.gain.connect(ctx.destination);
+    }
+  } catch (_) {
+    bus.gain = null;
+  }
+
+  el.playsInline = true;
+  el.preload = "auto";
+  el.defaultPlaybackRate = 1;
+  el.playbackRate = 1;
+  el._stable = bus;
+  bus.apply();
+  return bus;
+};
+
+const resumeAudioCtx = () => {
+  const ctx = getAudioCtx();
+  if (ctx && ctx.state === "suspended") ctx.resume().catch(() => {});
+};
+
+/* ---------- vídeo do hero: autoplay com trilha + mute manual (versão estável) ---------- */
 const video = document.getElementById("heroVideo");
 const audioBtn = document.getElementById("heroAudioBtn");
 const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
 
 const syncAudioBtn = () => {
-  if (!audioBtn) return;
+  if (!audioBtn || !video) return;
   const muted = !!video.muted;
   audioBtn.classList.toggle("is-muted", muted);
   audioBtn.setAttribute("aria-pressed", String(muted));
@@ -52,12 +124,16 @@ video.volume = 1;
 syncAudioBtn();
 
 video.play().catch(() => {
-  /* browsers block unmuted autoplay — keep picture, wait for mute toggle */
+  /* browsers bloqueiam autoplay com som — mantém imagem e espera gesto */
   video.muted = true;
   syncAudioBtn();
   playHero();
   const unlock = () => {
-    if (!video.paused) return;
+    if (!video.muted) return;
+    video.muted = false;
+    video.volume = 1;
+    if (typeof silenceOtherAudio === "function") silenceOtherAudio(video);
+    syncAudioBtn();
     playHero();
   };
   document.addEventListener("pointerdown", unlock, { once: true });
@@ -68,10 +144,8 @@ if (audioBtn) {
   audioBtn.addEventListener("click", () => {
     video.muted = !video.muted;
     if (!video.muted) {
-      document.querySelectorAll("video, audio").forEach((media) => {
-        if (media === video) return;
-        try { media.muted = true; media.pause(); } catch (_) {}
-      });
+      video.volume = 1;
+      if (typeof silenceOtherAudio === "function") silenceOtherAudio(video);
       playHero();
     }
     syncAudioBtn();
@@ -175,32 +249,56 @@ const filmVideo = document.getElementById("filmPlayerVideo");
 const filmBack = document.getElementById("filmPlayerBack");
 const filmAudioBtn = document.getElementById("filmPlayerAudioBtn");
 const filmAudioLabel = filmAudioBtn?.querySelector(".hero-audio-btn-label");
+let filmBus = null;
 let filmReturnY = 0;
 
+const ensureFilmBus = () => {
+  if (!filmBus) filmBus = attachStableAudio(filmVideo);
+  return filmBus;
+};
+
 const syncFilmAudioBtn = () => {
-  if (!filmAudioBtn) return;
-  const muted = !!filmVideo.muted;
+  const bus = filmBus || filmVideo?._stable;
+  if (!filmAudioBtn || !bus) return;
+  const muted = !bus.isAudible();
   filmAudioBtn.classList.toggle("is-muted", muted);
   filmAudioBtn.setAttribute("aria-pressed", String(muted));
   filmAudioBtn.setAttribute("aria-label", muted ? "Ativar som do filme" : "Silenciar filme");
   if (filmAudioLabel) filmAudioLabel.textContent = muted ? "MUTED" : "AUDIO";
 };
 
-/** Desliga áudio de qualquer outra mídia (só a página/filme atual pode soar). */
+/**
+ * Silencia outras mídias. Hero usa .muted nativo (sem Web Audio).
+ * Previews de card podem pausar — são sempre mudos.
+ */
 const silenceOtherAudio = (except) => {
   document.querySelectorAll("video, audio").forEach((media) => {
     if (except && media === except) return;
     try {
-      media.muted = true;
-      media.pause();
+      if (media.classList.contains("card-video") || media === reelMaster) {
+        media.muted = true;
+        media.pause();
+        return;
+      }
+      if (media === video) {
+        media.muted = true;
+        return;
+      }
+      if (media._stable) {
+        media._stable.setWanted(false);
+      } else {
+        media.muted = true;
+        media.volume = 0;
+      }
     } catch (_) {}
   });
-  if (except !== video && video) syncAudioBtn();
+  if (except !== video) syncAudioBtn();
+  if (except !== filmVideo) syncFilmAudioBtn();
 };
 
 const closeFilmPlayer = () => {
+  if (filmBus) filmBus.setWanted(false);
   filmVideo.pause();
-  filmVideo.muted = true;
   filmVideo.removeAttribute("src");
   filmVideo.load();
   filmPlayer.classList.remove("is-open");
@@ -208,7 +306,7 @@ const closeFilmPlayer = () => {
   document.body.classList.remove("film-open");
   document.body.style.overflow = "";
   window.scrollTo(0, filmReturnY);
-  /* volta à página anterior: hero só imagem, sem áudio interferindo */
+  /* volta: hero imagem sem trilha por cima do ambiente */
   if (video) {
     video.muted = true;
     syncAudioBtn();
@@ -218,18 +316,25 @@ const closeFilmPlayer = () => {
 
 const openFilmPlayer = (src) => {
   filmReturnY = window.scrollY || 0;
-  silenceOtherAudio(null);
+  resumeAudioCtx();
+  if (src && /^https?:/i.test(src) && !src.startsWith(location.origin)) {
+    filmVideo.crossOrigin = "anonymous";
+  }
+  filmVideo.src = src;
+  const bus = ensureFilmBus();
+  silenceOtherAudio(filmVideo);
   filmPlayer.removeAttribute("hidden");
   filmPlayer.classList.add("is-open");
   document.body.classList.add("film-open");
   document.body.style.overflow = "hidden";
-  filmVideo.pause();
-  filmVideo.src = src;
+
   filmVideo.muted = false;
-  filmVideo.volume = 1;
+  bus.setWanted(true);
   syncFilmAudioBtn();
   silenceOtherAudio(filmVideo);
+
   filmVideo.play().catch(() => {
+    bus.setWanted(false);
     filmVideo.muted = true;
     syncFilmAudioBtn();
     filmVideo.play().catch(() => {});
@@ -244,9 +349,14 @@ filmBack?.addEventListener("click", (e) => {
 
 filmAudioBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
-  filmVideo.muted = !filmVideo.muted;
-  if (!filmVideo.muted) {
+  resumeAudioCtx();
+  const bus = ensureFilmBus();
+  if (bus.isAudible()) {
+    bus.setWanted(false);
+  } else {
+    filmVideo.muted = false;
     silenceOtherAudio(filmVideo);
+    bus.setWanted(true);
     filmVideo.play().catch(() => {});
   }
   syncFilmAudioBtn();
@@ -259,8 +369,13 @@ document.addEventListener("keydown", (e) => {
     closeFilmPlayer();
   }
   if (e.key.toLowerCase() === "m") {
-    filmVideo.muted = !filmVideo.muted;
-    if (!filmVideo.muted) silenceOtherAudio(filmVideo);
+    const bus = ensureFilmBus();
+    if (bus.isAudible()) bus.setWanted(false);
+    else {
+      filmVideo.muted = false;
+      silenceOtherAudio(filmVideo);
+      bus.setWanted(true);
+    }
     syncFilmAudioBtn();
   }
 });
@@ -299,11 +414,14 @@ if (finePointer && !reduceMotion) {
 
     card.addEventListener("mouseenter", () => {
       if (filmPlayer.classList.contains("is-open")) return;
+      /* com trilha ativa, não dispara preview — poupa CPU */
+      if ((video && !video.muted) || filmBus?.isAudible()) return;
       if (!armed) {
         preview.src = card.getAttribute("data-preview") || card.getAttribute("href");
         armed = true;
       }
       preview.muted = true;
+      preview.volume = 0;
       card.classList.add("is-playing");
       const play = preview.play();
       if (play) play.catch(() => card.classList.remove("is-playing"));
