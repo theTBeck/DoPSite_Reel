@@ -5,10 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>CINE BECK — Direção de Fotografia</title>
 <meta name="description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="CINE BECK — Direção de Fotografia" />
+<meta property="og:description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+<meta property="og:image" content="assets/frames/hero-poster.jpg" />
+<meta property="og:url" content="https://thetbeck.github.io/DoPSite_Reel/" />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CINE BECK — Direção de Fotografia" />
+<meta name="twitter:description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+<meta name="twitter:image" content="assets/frames/hero-poster.jpg" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Thiago Beck",
+  "alternateName": "CINE BECK",
+  "jobTitle": "Diretor de Fotografia",
+  "description": "Cinematógrafo formado pela Accademia Internazionale di Cinema, em Cinecittà, Roma, e pós-graduado em Artes pela Accademia di Belle Arti di Roma.",
+  "url": "https://thetbeck.github.io/DoPSite_Reel/",
+  "image": "assets/frames/hero-poster.jpg",
+  "sameAs": [
+    "https://www.instagram.com/cine.beck/",
+    "https://vimeo.com/thiagobeck"
+  ],
+  "knowsLanguage": ["pt-BR", "it", "en"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "CINE BECK"
+  }
+}
+</script>
+
+<!-- Fonts & Styles -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
+
+<!-- Resource Hints -->
+<link rel="preload" as="image" href="assets/frames/hero-poster.jpg" />
+<link rel="preload" as="image" href="assets/posters/reel-v4.jpg" />
+<link rel="prefetch" href="reel-v4.html" />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 </head>
 <body>
 
@@ -19,7 +65,7 @@
   <a class="brand" href="#hero" id="brandLink" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar ao Hero">
     <span class="brand-name brand-name--short" aria-hidden="true">C.BECK <span class="site-back-volte">[VOLTE]</span></span>
     <span class="brand-name brand-name--long">
-      <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+      <span class="site-back-phrase">THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE</span>
       <span class="site-back-volte">[VOLTE]</span>
     </span>
   </a>
@@ -74,7 +120,7 @@
       id="heroVideo"
       src="reel_v1_capcut_ritchie_1080p.mp4"
       poster="assets/frames/hero-poster.jpg"
-      autoplay loop playsinline preload="auto"></video>
+      autoplay loop playsinline preload="metadata"></video>
     <div class="hero-shade" aria-hidden="true"></div>
 
     <div class="vf" aria-hidden="true">
@@ -416,7 +462,7 @@
         id="reelMasterVideo"
         src="reel_v1_capcut_ritchie_1080p.mp4"
         poster="assets/posters/reel-v4.jpg"
-        autoplay muted loop playsinline preload="auto"></video>
+        autoplay muted loop playsinline preload="metadata"></video>
     </a>
   </section>
 
@@ -463,6 +509,6 @@
 
 </main>
 
-<script src="js/main.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

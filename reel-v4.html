@@ -5,15 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Reel — Cine Beck</title>
 <meta name="description" content="Reel — Cine Beck. Seleção cinematográfica em tela cheia." />
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Reel — Cine Beck" />
+<meta property="og:description" content="Reel — Cine Beck. Seleção cinematográfica em tela cheia." />
+<meta property="og:image" content="assets/posters/reel-v4.jpg" />
+<meta property="og:url" content="https://thetbeck.github.io/DoPSite_Reel/reel-v4.html" />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Reel — Cine Beck" />
+<meta name="twitter:description" content="Reel — Cine Beck. Seleção cinematográfica em tela cheia." />
+<meta name="twitter:image" content="assets/posters/reel-v4.jpg" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Reel — Cine Beck",
+  "description": "Seleção cinematográfica em tela cheia — Direção de Fotografia por Thiago Beck",
+  "thumbnailUrl": "assets/posters/reel-v4.jpg",
+  "contentUrl": "reel_v1_capcut_ritchie_1080p.mp4",
+  "embedUrl": "https://thetbeck.github.io/DoPSite_Reel/reel-v4.html",
+  "uploadDate": "2026-09-13",
+  "duration": "PT1M25S",
+  "author": {
+    "@type": "Person",
+    "name": "Thiago Beck",
+    "alternateName": "CINE BECK"
+  }
+}
+</script>
+
+<!-- Fonts & Styles -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
+
+<!-- Resource Hints -->
+<link rel="preload" as="image" href="assets/posters/reel-v4.jpg" />
+<link rel="prefetch" href="index.html" />
 </head>
 <body class="reel-page">
 
-<button type="button" class="site-back" id="reelBackBtn" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar à página anterior">
-  <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+<button type="button" class="site-back" id="reelBackBtn" aria-label="THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE [VOLTE] — voltar à página anterior">
+  <span class="site-back-phrase">THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE</span>
   <span class="site-back-volte">[VOLTE]</span>
 </button>
 
@@ -23,7 +63,7 @@
     id="reelPageVideo"
     src="reel_v1_capcut_ritchie_1080p.mp4"
     poster="assets/posters/reel-v4.jpg"
-    autoplay loop playsinline preload="auto"></video>
+    autoplay loop playsinline preload="metadata"></video>
 </main>
 
 <button
@@ -36,7 +76,10 @@
   <span class="hero-audio-btn-label">AUDIO</span>
 </button>
 
-<script>
+<script type="module">
+import { audioManager } from './js/audio-manager.js';
+import { log } from './js/logger.js';
+
 (() => {
   const v = document.getElementById("reelPageVideo");
   const audioBtn = document.getElementById("reelAudioBtn");
@@ -44,39 +87,42 @@
   const backBtn = document.getElementById("reelBackBtn");
   if (!v) return;
 
+  // Attach audio manager (starts muted)
+  const bus = audioManager.attach(v, false);
+  
   const goBack = () => {
     v.pause();
-    v.muted = true;
+    bus.setWanted(false);
     if (window.history.length > 1) window.history.back();
     else window.location.href = "index.html#hero";
   };
 
   const syncAudioBtn = () => {
     if (!audioBtn) return;
-    const muted = !!v.muted;
+    const muted = !bus.isAudible();
     audioBtn.classList.toggle("is-muted", muted);
     audioBtn.setAttribute("aria-pressed", String(muted));
     audioBtn.setAttribute("aria-label", muted ? "Ativar som do reel" : "Silenciar reel");
     if (audioLabel) audioLabel.textContent = muted ? "MUTED" : "AUDIO";
   };
 
-  const play = () => v.play().catch(() => {});
-
-  v.muted = false;
-  v.volume = 1;
   syncAudioBtn();
 
+  // Autoplay muted
   v.play().catch(() => {
-    v.muted = true;
-    syncAudioBtn();
-    play();
-    const unlock = () => {
-      if (!v.paused) return;
-      play();
-    };
-    document.addEventListener("pointerdown", unlock, { once: true });
-    document.addEventListener("keydown", unlock, { once: true });
+    log.warn('Reel page autoplay blocked, waiting for gesture');
   });
+
+  // Gesture unlock
+  const unlock = () => {
+    bus.setWanted(true);
+    v.play().catch(_ => {});
+    document.removeEventListener('pointerdown', unlock, { capture: true });
+    document.removeEventListener('keydown', unlock, { capture: true });
+    syncAudioBtn();
+  };
+  document.addEventListener('pointerdown', unlock, { once: true, capture: true });
+  document.addEventListener('keydown', unlock, { once: true, capture: true });
 
   backBtn?.addEventListener("click", (e) => {
     e.preventDefault();
@@ -85,8 +131,15 @@
 
   if (audioBtn) {
     audioBtn.addEventListener("click", () => {
-      v.muted = !v.muted;
-      if (!v.muted) play();
+      const currentlyAudible = bus.isAudible();
+      if (currentlyAudible) {
+        bus.setWanted(false);
+      } else {
+        audioManager.resume();
+        v.muted = false;
+        bus.setWanted(true);
+        v.play().catch(_ => {});
+      }
       syncAudioBtn();
     });
   }
@@ -95,18 +148,25 @@
     if (e.key === "Escape") goBack();
     if (e.key === " " || e.code === "Space") {
       e.preventDefault();
-      if (v.paused) play();
+      if (v.paused) v.play().catch(_ => {});
       else v.pause();
     }
     if (e.key.toLowerCase() === "m") {
-      v.muted = !v.muted;
+      const currentlyAudible = bus.isAudible();
+      if (currentlyAudible) bus.setWanted(false);
+      else {
+        audioManager.resume();
+        v.muted = false;
+        bus.setWanted(true);
+        v.play().catch(_ => {});
+      }
       syncAudioBtn();
     }
   });
 
   window.addEventListener("pagehide", () => {
     v.pause();
-    v.muted = true;
+    bus.setWanted(false);
   });
 })();
 </script>
