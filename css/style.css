@@ -412,6 +412,18 @@ a.card {
 .card-meta { font-size: 10px; letter-spacing: 0.26em; color: var(--tungsten); }
 
 /* ============ PUBLICIDADE ============ */
+/* Cards 9:16 = mesmo fotograma do grid @cine.beck */
+section.publi .card-fig {
+  aspect-ratio: 9 / 16;
+}
+section.publi .card-fig::before {
+  padding-top: 177.78%;
+}
+section.publi .card-fig img {
+  object-fit: contain;
+  object-position: center;
+  background: #000;
+}
 .publi-grid {
   display: grid; gap: 1px; background: var(--hairline);
   border: 1px solid var(--hairline);
