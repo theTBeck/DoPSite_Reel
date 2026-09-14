@@ -412,16 +412,17 @@ a.card {
 .card-meta { font-size: 10px; letter-spacing: 0.26em; color: var(--tungsten); }
 
 /* ============ PUBLICIDADE ============ */
-/* Cards 9:16 = mesmo fotograma do grid @cine.beck */
+/* Fotograma preenche o card (16:9 = AR dos frames IG sem letterbox).
+   --pos ancora o rosto / ponto forte. */
 section.publi .card-fig {
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 16 / 9;
 }
 section.publi .card-fig::before {
-  padding-top: 177.78%;
+  padding-top: 56.25%;
 }
 section.publi .card-fig img {
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: var(--pos, 50% 45%);
   background: #000;
 }
 .publi-grid {
@@ -620,4 +621,138 @@ a.contact-row:hover { background: var(--panel); padding-left: 16px; }
   .card-fig img { transition: none; }
   .card-video { display: none; }
   .brand-name { transition: none; }
+}
+
+/* ============ VIDEO ERROR OVERLAY ============ */
+.video-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 10, 8, 0.95);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  gap: 12px;
+  z-index: 10;
+  padding: 20px;
+  text-align: center;
+}
+
+.video-error .retry-btn {
+  padding: 10px 20px;
+  background: var(--tungsten);
+  color: var(--carbon);
+  border: none;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.video-error .retry-btn:hover {
+  background: var(--bone);
+  transform: translateY(-2px);
+}
+
+.video-error .retry-btn:focus-visible {
+  outline: 2px solid var(--tungsten);
+  outline-offset: 3px;
+}
+
+/* ============ REDUCED MOTION CLASS ============ */
+.reduce-motion .rv {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.reduce-motion .vf-rec .dot,
+.reduce-motion .hero-scroll,
+.reduce-motion .card-fig img {
+  animation: none !important;
+  transition: none !important;
+}
+
+.reduce-motion .brand-name {
+  transition: none !important;
+}
+
+.reduce-motion .card-video {
+  display: none !important;
+}
+
+/* ============ FILM PLAYER Z-INDEX FIX ============ */
+.film-player {
+  z-index: 1000;
+}
+
+.film-player .site-back,
+.film-player .hero-audio-btn {
+  z-index: 1010;
+}
+
+/* ============ MEGA MENU FOCUS STYLES ============ */
+.mega-list a:focus-visible {
+  outline: 2px solid var(--tungsten);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ============ RESPONSIVE IMAGE PLACEHOLDER ============ */
+.card-fig {
+  position: relative;
+}
+
+.card-fig::before {
+  content: '';
+  display: block;
+  padding-top: 100%; /* 1:1 aspect ratio */
+}
+
+.card-fig img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+  .site-head,
+  .mega,
+  .hero-audio-btn,
+  .vf-reel-link,
+  .hero-scroll,
+  .film-player,
+  .card-video {
+    display: none !important;
+  }
+  
+  .hero {
+    height: auto;
+    min-height: 50vh;
+  }
+  
+  .hero-video {
+    display: none;
+  }
+  
+  .hero-content {
+    position: static;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
 }

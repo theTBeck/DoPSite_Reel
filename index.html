@@ -5,10 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>CINE BECK — Direção de Fotografia</title>
 <meta name="description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="CINE BECK — Direção de Fotografia" />
+<meta property="og:description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+<meta property="og:image" content="assets/frames/hero-poster.jpg" />
+<meta property="og:url" content="https://thetbeck.github.io/DoPSite_Reel/" />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CINE BECK — Direção de Fotografia" />
+<meta name="twitter:description" content="Cine Beck — Diretor de Fotografia. Documentários, reality, curtas-metragens e publicidade entre a Europa e a América do Sul." />
+<meta name="twitter:image" content="assets/frames/hero-poster.jpg" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Thiago Beck",
+  "alternateName": "CINE BECK",
+  "jobTitle": "Diretor de Fotografia",
+  "description": "Cinematógrafo formado pela Accademia Internazionale di Cinema, em Cinecittà, Roma, e pós-graduado em Artes pela Accademia di Belle Arti di Roma.",
+  "url": "https://thetbeck.github.io/DoPSite_Reel/",
+  "image": "assets/frames/hero-poster.jpg",
+  "sameAs": [
+    "https://www.instagram.com/cine.beck/",
+    "https://vimeo.com/thiagobeck"
+  ],
+  "knowsLanguage": ["pt-BR", "it", "en"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "CINE BECK"
+  }
+}
+</script>
+
+<!-- Fonts & Styles -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style.css?v=fill" />
+
+<!-- Resource Hints -->
+<link rel="preload" as="image" href="assets/frames/hero-poster.jpg" />
+<link rel="preload" as="image" href="assets/posters/reel-v4.jpg" />
+<link rel="prefetch" href="reel-v4.html" />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 </head>
 <body>
 
@@ -19,7 +65,7 @@
   <a class="brand" href="#hero" id="brandLink" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar ao Hero">
     <span class="brand-name brand-name--short" aria-hidden="true">C.BECK <span class="site-back-volte">[VOLTE]</span></span>
     <span class="brand-name brand-name--long">
-      <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+      <span class="site-back-phrase">THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE</span>
       <span class="site-back-volte">[VOLTE]</span>
     </span>
   </a>
@@ -72,9 +118,9 @@
     <video
       class="hero-video"
       id="heroVideo"
-      src="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/reel_v1_capcut_ritchie_1080p.mp4"
+      src="reel_v1_capcut_ritchie_1080p.mp4"
       poster="assets/frames/hero-poster.jpg"
-      autoplay loop playsinline preload="auto"></video>
+      autoplay loop playsinline preload="metadata"></video>
     <div class="hero-shade" aria-hidden="true"></div>
 
     <div class="vf" aria-hidden="true">
@@ -116,7 +162,7 @@
       <span class="reel-meta">NON-FICTION&nbsp;·&nbsp;5&nbsp;OBRAS</span>
     </header>
     <div class="cards">
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/HistoriaDavi-doc.mp4" target="_blank" rel="noopener" aria-label="Assistir A História de Davi Santos">
+      <a class="card rv" href="HistoriaDavi-doc.mp4" target="_blank" rel="noopener" aria-label="Assistir A História de Davi Santos">
         <figure class="card-fig"><img src="assets/posters/historia-davi.jpg" alt="A História de Davi Santos — frame do documentário" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">A HISTÓRIA DE DAVI SANTOS</h3>
@@ -124,7 +170,7 @@
           <p class="card-meta mono">DOC&nbsp;·&nbsp;16&nbsp;MIN</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Amazon-Rally.mp4" target="_blank" rel="noopener" aria-label="Assistir Amazon Rally">
+      <a class="card rv" href="Amazon-Rally.mp4" target="_blank" rel="noopener" aria-label="Assistir Amazon Rally">
         <figure class="card-fig"><img src="assets/posters/amazon-rally.jpg" alt="Amazon Rally — UTV atravessando água" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">AMAZON RALLY</h3>
@@ -132,7 +178,7 @@
           <p class="card-meta mono">DOC&nbsp;·&nbsp;EXPEDIÇÃO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/NikeFootbal.mp4" target="_blank" rel="noopener" aria-label="Assistir Nike Football Ripple Effects">
+      <a class="card rv" href="NikeFootbal.mp4" target="_blank" rel="noopener" aria-label="Assistir Nike Football Ripple Effects">
         <figure class="card-fig"><img src="assets/posters/nike-football.jpg" alt="Nike Football — atleta em videochamada" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">NIKE FOOTBALL — RIPPLE EFFECTS</h3>
@@ -140,7 +186,7 @@
           <p class="card-meta mono">DOC&nbsp;·&nbsp;6:45&nbsp;MIN</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Exilados-doc.mp4" target="_blank" rel="noopener" aria-label="Assistir Perseguição Sem Fronteiras">
+      <a class="card rv" href="Exilados-doc.mp4" target="_blank" rel="noopener" aria-label="Assistir Perseguição Sem Fronteiras">
         <figure class="card-fig"><img src="assets/posters/perseguicao-sem-fronteiras.jpg" alt="Perseguição Sem Fronteiras — frame do documentário" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">PERSEGUIÇÃO SEM FRONTEIRAS</h3>
@@ -148,7 +194,7 @@
           <p class="card-meta mono">DOC&nbsp;·&nbsp;1H</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Exilio.mp4" target="_blank" rel="noopener" aria-label="Assistir Exílio">
+      <a class="card rv" href="Exilio.mp4" target="_blank" rel="noopener" aria-label="Assistir Exílio">
         <figure class="card-fig"><img src="assets/posters/exilio.jpg" alt="Exílio — retrato de menino" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">EXÍLIO</h3>
@@ -167,7 +213,7 @@
       <span class="reel-meta">HONDA&nbsp;·&nbsp;3&nbsp;EPS</span>
     </header>
     <div class="cards">
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Hondad-Reality01.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 01">
+      <a class="card rv" href="Hondad-Reality01.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 01">
         <figure class="card-fig"><img src="assets/posters/honda-reality-01.jpg" alt="Honda Reality — participantes e motos na abertura" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">HONDA REALITY&nbsp;01</h3>
@@ -175,7 +221,7 @@
           <p class="card-meta mono">REALITY&nbsp;·&nbsp;HONDA</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Honda-Reality02.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 02">
+      <a class="card rv" href="Honda-Reality02.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 02">
         <figure class="card-fig"><img src="assets/posters/honda-reality-02.jpg" alt="Honda Reality — participantes e motos na abertura" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">HONDA REALITY&nbsp;02</h3>
@@ -183,7 +229,7 @@
           <p class="card-meta mono">REALITY&nbsp;·&nbsp;HONDA</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Honda-Reality03.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 03">
+      <a class="card rv" href="Honda-Reality03.mp4" target="_blank" rel="noopener" aria-label="Assistir Honda Reality 03">
         <figure class="card-fig"><img src="assets/posters/honda-reality-03.jpg" alt="Honda Reality — participantes e motos na abertura" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">HONDA REALITY&nbsp;03</h3>
@@ -202,7 +248,7 @@
       <span class="reel-meta">NARRATIVA&nbsp;·&nbsp;3&nbsp;OBRAS</span>
     </header>
     <div class="cards">
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/SteveSpigel-curtasequenciq.mp4" target="_blank" rel="noopener" aria-label="Assistir Steve Spiegel">
+      <a class="card rv" href="SteveSpigel-curtasequenciq.mp4" target="_blank" rel="noopener" aria-label="Assistir Steve Spiegel">
         <figure class="card-fig"><img src="assets/posters/steve-spiegel.jpg" alt="Steve Spiegel — frame do curta" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">STEVE SPIEGEL</h3>
@@ -210,7 +256,7 @@
           <p class="card-meta mono">FICÇÃO&nbsp;·&nbsp;CURTA</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Coletanea.mp4" target="_blank" rel="noopener" aria-label="Assistir Coletânia de Histórias Extremamente Curtas">
+      <a class="card rv" href="Coletanea.mp4" target="_blank" rel="noopener" aria-label="Assistir Coletânia de Histórias Extremamente Curtas">
         <figure class="card-fig"><img src="assets/posters/coletanea.jpg" alt="Coletânia — frame do curta" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">COLETÂNIA DE HISTÓRIAS EXTREMAMENTE CURTAS</h3>
@@ -218,7 +264,7 @@
           <p class="card-meta mono">FICÇÃO&nbsp;·&nbsp;ANTOLOGIA</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Curta-desaparecido.mp4" target="_blank" rel="noopener" aria-label="Assistir Desaparecido">
+      <a class="card rv" href="Curta-desaparecido.mp4" target="_blank" rel="noopener" aria-label="Assistir Desaparecido">
         <figure class="card-fig"><img src="assets/posters/desaparecido.jpg" alt="Desaparecido — quarto sob luz vermelha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">DESAPARECIDO</h3>
@@ -237,168 +283,168 @@
       <span class="reel-meta">BRANDED&nbsp;CONTENT&nbsp;·&nbsp;21&nbsp;CAMPANHAS</span>
     </header>
     <div class="cards">
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/AdidasPharrel.mp4" target="_blank" rel="noopener" aria-label="Assistir Adidas Pharrel">
-        <figure class="card-fig"><img src="assets/posters/adidas-pharrel.jpg" alt="Adidas Pharrel — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="AdidasPharrel.mp4" target="_blank" rel="noopener" aria-label="Assistir Adidas Pharrel">
+        <figure class="card-fig" style="--pos: 30% 50%"><img src="assets/posters/adidas-pharrel.jpg?v=fill" alt="Adidas Pharrel — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">ADIDAS PHARREL</h3>
           <p class="card-txt">Campanha esportiva — ritmo, atitude e movimento em quadro.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;ESPORTE</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/AlphaRomeu.mp4" target="_blank" rel="noopener" aria-label="Assistir Alpha Romeu">
-        <figure class="card-fig"><img src="assets/posters/alpha-romeu.jpg" alt="Alpha Romeu — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="AlphaRomeu.mp4" target="_blank" rel="noopener" aria-label="Assistir Alpha Romeu">
+        <figure class="card-fig" style="--pos: 50% 48%"><img src="assets/posters/alpha-romeu.jpg?v=fill" alt="Alpha Romeu — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">ALPHA ROMEU</h3>
           <p class="card-txt">Filme automotivo — design, performance e presença de marca.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Bancodobrasil.mp4" target="_blank" rel="noopener" aria-label="Assistir Banco do Brasil">
-        <figure class="card-fig"><img src="assets/posters/banco-do-brasil.jpg" alt="Banco do Brasil — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Bancodobrasil.mp4" target="_blank" rel="noopener" aria-label="Assistir Banco do Brasil">
+        <figure class="card-fig" style="--pos: 48% 50%"><img src="assets/posters/banco-do-brasil.jpg?v=fill" alt="Banco do Brasil — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">BANCO DO BRASIL</h3>
           <p class="card-txt">Campanha institucional — tradição e inovação em serviços bancários.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;INSTITUCIONAL</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Buscopam.mp4" target="_blank" rel="noopener" aria-label="Assistir Buscopam">
-        <figure class="card-fig"><img src="assets/posters/buscopan.jpg" alt="Buscopam — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Buscopam.mp4" target="_blank" rel="noopener" aria-label="Assistir Buscopam">
+        <figure class="card-fig" style="--pos: 26% 42%"><img src="assets/posters/buscopan.jpg?v=fill" alt="Buscopam — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">BUSCOPAM</h3>
           <p class="card-txt">Filme de produto — alívio e bem-estar em situações do cotidiano.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FARMA</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Cannon-Amor.mp4" target="_blank" rel="noopener" aria-label="Assistir Cannon Amor">
-        <figure class="card-fig"><img src="assets/posters/cannon-amor.jpg" alt="Cannon Amor — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Cannon-Amor.mp4" target="_blank" rel="noopener" aria-label="Assistir Cannon Amor">
+        <figure class="card-fig" style="--pos: 52% 38%"><img src="assets/posters/cannon-amor.jpg?v=fill" alt="Cannon Amor — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">CANNON AMOR</h3>
           <p class="card-txt">Campanha — emoção e intimidade em luz cinematográfica.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BRANDED</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Cupnoodles.mp4" target="_blank" rel="noopener" aria-label="Assistir Cup Noodles">
-        <figure class="card-fig"><img src="assets/posters/cupnoodles.jpg" alt="Cup Noodles — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Cupnoodles.mp4" target="_blank" rel="noopener" aria-label="Assistir Cup Noodles">
+        <figure class="card-fig" style="--pos: 48% 36%"><img src="assets/posters/cupnoodles.jpg?v=fill" alt="Cup Noodles — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">CUP NOODLES</h3>
           <p class="card-txt">Filme de produto — sabor, cor e apetite em close-up.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FOOD</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Epson-canudos.mp4" target="_blank" rel="noopener" aria-label="Assistir Epson Canudos">
-        <figure class="card-fig"><img src="assets/posters/epson-canudos.jpg" alt="Epson Canudos — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Epson-canudos.mp4" target="_blank" rel="noopener" aria-label="Assistir Epson Canudos">
+        <figure class="card-fig" style="--pos: 30% 42%"><img src="assets/posters/epson-canudos.jpg?v=fill" alt="Epson Canudos — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">EPSON CANUDOS</h3>
           <p class="card-txt">Campanha Epson — tecnologia e narrativa visual no cotidiano.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;TECH</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Granola.mp4" target="_blank" rel="noopener" aria-label="Assistir Granola">
-        <figure class="card-fig"><img src="assets/posters/granola.jpg" alt="Granola — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Granola.mp4" target="_blank" rel="noopener" aria-label="Assistir Granola">
+        <figure class="card-fig" style="--pos: 50% 40%"><img src="assets/posters/granola.jpg?v=fill" alt="Granola — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">GRANOLA</h3>
           <p class="card-txt">Filme de alimento — textura, luz e frescor em tabletop.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FOOD</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Hidro.mp4" target="_blank" rel="noopener" aria-label="Assistir Hidro">
-        <figure class="card-fig"><img src="assets/posters/hidro.jpg" alt="Hidro — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Hidro.mp4" target="_blank" rel="noopener" aria-label="Assistir Hidro">
+        <figure class="card-fig" style="--pos: 50% 68%"><img src="assets/posters/hidro.jpg?v=fill" alt="Hidro — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">HIDRO</h3>
           <p class="card-txt">Campanha — água, movimento e atmosfera em imagem limpa.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BRANDED</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Indaia.mp4" target="_blank" rel="noopener" aria-label="Assistir Indaiá">
-        <figure class="card-fig"><img src="assets/posters/indaia.jpg" alt="Indaiá — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Indaia.mp4" target="_blank" rel="noopener" aria-label="Assistir Indaiá">
+        <figure class="card-fig" style="--pos: 52% 52%"><img src="assets/posters/indaia.jpg?v=fill" alt="Indaiá — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">INDAIÁ</h3>
           <p class="card-txt">Campanha de bebidas — refrescância e sabor em close-up.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BEBIDAS</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Jeep-RENEGADE.mp4" target="_blank" rel="noopener" aria-label="Assistir Jeep Renegade">
-        <figure class="card-fig"><img src="assets/posters/jeep-renegade.jpg" alt="Jeep Renegade — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Jeep-RENEGADE.mp4" target="_blank" rel="noopener" aria-label="Assistir Jeep Renegade">
+        <figure class="card-fig" style="--pos: 50% 48%"><img src="assets/posters/jeep-renegade.jpg?v=fill" alt="Jeep Renegade — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">JEEP RENEGADE</h3>
           <p class="card-txt">Filme de lançamento — aventura urbana com DNA off-road.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/JeepGladiator.mp4" target="_blank" rel="noopener" aria-label="Assistir Jeep Gladiator">
-        <figure class="card-fig"><img src="assets/posters/jeep-gladiator.jpg" alt="Jeep Gladiator — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="JeepGladiator.mp4" target="_blank" rel="noopener" aria-label="Assistir Jeep Gladiator">
+        <figure class="card-fig" style="--pos: 36% 38%"><img src="assets/posters/jeep-gladiator.jpg?v=fill" alt="Jeep Gladiator — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">JEEP GLADIATOR</h3>
           <p class="card-txt">Campanha off-road — potência, terreno e presença da marca.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Marisa.mp4" target="_blank" rel="noopener" aria-label="Assistir Marisa">
-        <figure class="card-fig"><img src="assets/posters/marisa.jpg" alt="Marisa — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Marisa.mp4" target="_blank" rel="noopener" aria-label="Assistir Marisa">
+        <figure class="card-fig" style="--pos: 28% 42%"><img src="assets/posters/marisa.jpg?v=fill" alt="Marisa — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">MARISA</h3>
           <p class="card-txt">Campanha de moda — luz, textura e movimento em estúdio.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;MODA</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Ora3GWM.mp4" target="_blank" rel="noopener" aria-label="Assistir Ora GWM">
-        <figure class="card-fig"><img src="assets/posters/ora-gwm.jpg" alt="Ora GWM — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Ora3GWM.mp4" target="_blank" rel="noopener" aria-label="Assistir Ora GWM">
+        <figure class="card-fig" style="--pos: 50% 46%"><img src="assets/posters/ora-gwm.jpg?v=fill" alt="Ora GWM — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">ORA GWM</h3>
           <p class="card-txt">Filme automotivo — design elétrico e presença contemporânea.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Rico%20Joao.mp4" target="_blank" rel="noopener" aria-label="Assistir Rico João">
-        <figure class="card-fig"><img src="assets/posters/rico-joao.jpg" alt="Rico João Vicente — silhueta no teatro" loading="lazy" /></figure>
+      <a class="card rv" href="Rico%20Joao.mp4" target="_blank" rel="noopener" aria-label="Assistir Rico João">
+        <figure class="card-fig" style="--pos: 48% 40%"><img src="assets/posters/rico-joao.jpg?v=fill" alt="Rico João Vicente — silhueta no teatro" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">RICO JOÃO</h3>
           <p class="card-txt">Campanha — personagem, humor e ritmo publicitário.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;BRANDED</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Serasa-detetive.mp4" target="_blank" rel="noopener" aria-label="Assistir Serasa Detetive">
-        <figure class="card-fig"><img src="assets/posters/serasa-detetive.jpg" alt="Serasa Detetive — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Serasa-detetive.mp4" target="_blank" rel="noopener" aria-label="Assistir Serasa Detetive">
+        <figure class="card-fig" style="--pos: 72% 48%"><img src="assets/posters/serasa-detetive.jpg?v=fill" alt="Serasa Detetive — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">SERASA — DETETIVE</h3>
           <p class="card-txt">Filme de produto — segurança e inteligência em dados financeiros.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;FINTECH</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Sonic-TELECINE.mp4" target="_blank" rel="noopener" aria-label="Assistir Sonic Telecine">
-        <figure class="card-fig"><img src="assets/posters/sonic-telecine.jpg" alt="Sonic Telecine — frame do institucional" loading="lazy" /></figure>
+      <a class="card rv" href="Sonic-TELECINE.mp4" target="_blank" rel="noopener" aria-label="Assistir Sonic Telecine">
+        <figure class="card-fig" style="--pos: 46% 36%"><img src="assets/posters/sonic-telecine.jpg?v=fill" alt="Sonic Telecine — frame do institucional" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">SONIC TELECINE</h3>
           <p class="card-txt">Institucional da casa de pós-produção — cor, textura e finalização.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;PÓS-PRODUÇÃO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/SonyBRAVIA.mp4" target="_blank" rel="noopener" aria-label="Assistir Sony Bravia">
-        <figure class="card-fig"><img src="assets/posters/sony-bravia.jpg" alt="Sony Bravia — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="SonyBRAVIA.mp4" target="_blank" rel="noopener" aria-label="Assistir Sony Bravia">
+        <figure class="card-fig" style="--pos: 72% 45%"><img src="assets/posters/sony-bravia.jpg?v=fill" alt="Sony Bravia — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">SONY BRAVIA</h3>
           <p class="card-txt">Campanha de lançamento da linha OLED — cores, contraste e movimento em 4K.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;TV</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/TataExa.mp4" target="_blank" rel="noopener" aria-label="Assistir Tata Exa">
-        <figure class="card-fig"><img src="assets/posters/tata-exa.jpg" alt="Tata Exa — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="TataExa.mp4" target="_blank" rel="noopener" aria-label="Assistir Tata Exa">
+        <figure class="card-fig" style="--pos: 40% 50%"><img src="assets/posters/tata-exa.jpg?v=fill" alt="Tata Exa — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">TATA EXA</h3>
           <p class="card-txt">Filme automotivo — presença, estrada e assinatura da marca.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;AUTOMOTIVO</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Tim-Genius.mp4" target="_blank" rel="noopener" aria-label="Assistir Tim Genius">
-        <figure class="card-fig"><img src="assets/posters/tim-genius.jpg" alt="Tim Genius — frame da campanha" loading="lazy" /></figure>
+      <a class="card rv" href="Tim-Genius.mp4" target="_blank" rel="noopener" aria-label="Assistir Tim Genius">
+        <figure class="card-fig" style="--pos: 32% 48%"><img src="assets/posters/tim-genius.jpg?v=fill" alt="Tim Genius — frame da campanha" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">TIM GENIUS</h3>
           <p class="card-txt">Campanha de conectividade — velocidade e inovação em telecom.</p>
           <p class="card-meta mono">PUBLICIDADE&nbsp;·&nbsp;TELECOM</p>
         </div>
       </a>
-      <a class="card rv" href="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/Zaxy.mp4" target="_blank" rel="noopener" aria-label="Assistir Zaxy">
-        <figure class="card-fig"><img src="assets/posters/zaxy.jpg" alt="Zaxy — retrato com fones vermelhos" loading="lazy" /></figure>
+      <a class="card rv" href="Zaxy.mp4" target="_blank" rel="noopener" aria-label="Assistir Zaxy">
+        <figure class="card-fig" style="--pos: 50% 28%"><img src="assets/posters/zaxy.jpg?v=fill" alt="Zaxy — retrato com fones vermelhos" loading="lazy" /></figure>
         <div class="card-body">
           <h3 class="card-title">ZAXY</h3>
           <p class="card-txt">Campanha de moda — estilo, cor e movimento em quadro.</p>
@@ -414,9 +460,9 @@
       <video
         class="reel-fullpage-video"
         id="reelMasterVideo"
-        src="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/reel_v1_final_1080p.mp4"
+        src="reel_v1_capcut_ritchie_1080p.mp4"
         poster="assets/posters/reel-v4.jpg"
-        autoplay muted loop playsinline preload="auto"></video>
+        autoplay muted loop playsinline preload="metadata"></video>
     </a>
   </section>
 
@@ -463,6 +509,6 @@
 
 </main>
 
-<script src="js/main.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
