@@ -54,30 +54,50 @@ class VideoManager {
   setupReelMasterVideo() {
     const v = this.reelMasterVideo;
     if (!v) return;
-    
+
     this.track(v);
+    // Stay on the native muted flag so Chrome allows autoplay.
+    // Do not route this clip through AudioManager (GainNode forces muted=false).
     v.muted = true;
-    v.preload = 'metadata';
+    v.defaultMuted = true;
+    v.setAttribute('muted', '');
+    v.volume = 1;
+    v.loop = true;
     v.playsInline = true;
-    this.audio.attach(v, false);
-    
-    // IntersectionObserver for autoplay when visible
+    v.preload = 'auto';
+
+    const section = document.getElementById('reel') || v;
+    let inView = false;
+
+    const kickMuted = () => {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      if (!inView) return;
+      v.play().then(() => log.videoEvent('play', v, { context: 'reel-master' }))
+        .catch(e => log.warn('Reel muted autoplay blocked', { error: e.name, message: e.message }));
+    };
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(en => {
-        if (en.isIntersecting) {
-          this.attemptPlay(v, 'reel-master');
-        } else {
+        inView = en.isIntersecting;
+        if (inView) kickMuted();
+        else {
           v.pause();
           log.videoEvent('pause', v, { reason: 'intersection-exit' });
         }
       });
-    }, { threshold: 0.2 });
-    
-    observer.observe(v);
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
     v._intersectionObserver = observer;
-    
-    // Gesture unlock for reel master
-    document.addEventListener('pointerdown', () => this.attemptPlay(v, 'reel-master'), { once: true });
+
+    v.addEventListener('canplay', () => {
+      if (v.paused && inView) kickMuted();
+    });
+    v.addEventListener('loadeddata', () => {
+      if (v.paused && inView) kickMuted();
+    });
   }
   
   attemptPlay(videoEl, context) {
