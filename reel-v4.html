@@ -63,7 +63,7 @@
     id="reelPageVideo"
     src="reel_v1_capcut_ritchie_1080p.mp4"
     poster="assets/posters/reel-v4.jpg"
-    autoplay loop playsinline preload="metadata"></video>
+    autoplay muted loop playsinline preload="auto"></video>
 </main>
 
 <button
@@ -106,11 +106,18 @@ import { log } from './js/logger.js';
     if (audioLabel) audioLabel.textContent = muted ? "MUTED" : "AUDIO";
   };
 
-  syncAudioBtn();
+  const play = () => v.play().catch(() => {});
 
-  // Autoplay muted
-  v.play().catch(() => {
-    log.warn('Reel page autoplay blocked, waiting for gesture');
+  const kickAutoplay = () => {
+    v.muted = true;
+    v.volume = 1;
+    syncAudioBtn();
+    play();
+  };
+
+  kickAutoplay();
+  v.addEventListener("canplay", () => {
+    if (v.paused) kickAutoplay();
   });
 
   // Gesture unlock
