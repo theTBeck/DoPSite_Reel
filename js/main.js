@@ -208,23 +208,36 @@ const revealIO = new IntersectionObserver(
 );
 document.querySelectorAll(".rv").forEach((el) => revealIO.observe(el));
 
-/* ---------- reel fullpage: autoplay do master ---------- */
+/* ---------- reel fullpage: autoplay mudo (antes do Contato) ---------- */
 const reelMaster = document.getElementById("reelMasterVideo");
 if (reelMaster) {
-  reelMaster.muted = true;
-  const tryReel = () => reelMaster.play().catch(() => {});
-  tryReel();
+  const kickMuted = () => {
+    reelMaster.muted = true;
+    reelMaster.defaultMuted = true;
+    reelMaster.setAttribute("muted", "");
+    reelMaster.play().catch(() => {});
+  };
+  reelMaster.loop = true;
+  reelMaster.playsInline = true;
+  reelMaster.preload = "auto";
+  kickMuted();
   const reelWatch = new IntersectionObserver(
     (entries) => {
       entries.forEach((en) => {
-        if (en.isIntersecting) tryReel();
+        if (en.isIntersecting) kickMuted();
         else reelMaster.pause();
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.15 }
   );
-  reelWatch.observe(reelMaster);
-  document.addEventListener("pointerdown", tryReel, { once: true });
+  reelWatch.observe(document.getElementById("reel") || reelMaster);
+  reelMaster.addEventListener("canplay", () => {
+    if (reelMaster.paused) kickMuted();
+  });
+  reelMaster.addEventListener("loadeddata", () => {
+    if (reelMaster.paused) kickMuted();
+  });
+  document.addEventListener("pointerdown", kickMuted, { once: true });
 }
 
 /* ---------- player fullscreen: clique no card = autoplay com áudio ---------- */
