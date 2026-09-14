@@ -425,6 +425,11 @@ section.publi .card-fig img {
   object-position: var(--pos, 50% 45%);
   background: #000;
 }
+section.reality .card-fig img {
+  object-fit: cover;
+  object-position: var(--pos, 50% 45%);
+  background: #000;
+}
 .publi-grid {
   display: grid; gap: 1px; background: var(--hairline);
   border: 1px solid var(--hairline);
