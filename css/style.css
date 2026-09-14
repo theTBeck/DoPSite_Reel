@@ -412,16 +412,17 @@ a.card {
 .card-meta { font-size: 10px; letter-spacing: 0.26em; color: var(--tungsten); }
 
 /* ============ PUBLICIDADE ============ */
-/* Cards 9:16 = mesmo fotograma do grid @cine.beck */
+/* Fotograma preenche o card (16:9 = AR dos frames IG sem letterbox).
+   --pos ancora o rosto / ponto forte. */
 section.publi .card-fig {
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 16 / 9;
 }
 section.publi .card-fig::before {
-  padding-top: 177.78%;
+  padding-top: 56.25%;
 }
 section.publi .card-fig img {
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: var(--pos, 50% 45%);
   background: #000;
 }
 .publi-grid {
