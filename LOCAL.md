@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Pasta local canônica | `C:\inteligencia-artificial\DoPSite-RV` |
+| Pasta local canônica | `/Users/admin/Documents/INTELIGENCIA-ARTIFICIAL\DoPSite-RV` |
 | Remoto GitHub | https://github.com/theTBeck/DoPSite_Reel |
 | Branch | `main` |
 
@@ -10,4 +10,4 @@ O nome local histórico é **DoPSite-RV**. O repositório no GitHub chama-se **D
 
 Trabalho legado (sem Git, ~16 GB com masters/backups) ficou em:
 
-`C:\inteligencia-artificial\DoPSite-RV_legacy`
+`/Users/admin/Documents/INTELIGENCIA-ARTIFICIAL\DoPSite-RV_legacy`
