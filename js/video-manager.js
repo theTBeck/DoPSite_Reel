@@ -29,20 +29,33 @@ class VideoManager {
   setupHeroVideo() {
     const v = this.heroVideo;
     this.track(v);
-    
-    // CRITICAL: Always start muted - no autoplay with sound
+
+    // Native muted flag so Chrome allows autoplay.
+    // Do not route this clip through AudioManager (GainNode forces muted=false
+    // and the rejected play() is never retried, so the hero stays on the poster).
     v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute('muted', '');
     v.volume = 1;
-    v.preload = 'metadata';
+    v.loop = true;
     v.playsInline = true;
-    
-    // Attach audio control (starts silent)
-    this.audio.attach(v, false);
-    
-    // Autoplay attempt (muted)
-    this.attemptPlay(v, 'hero');
-    
-    // Error handling
+    v.preload = 'auto';
+
+    const kickMuted = () => {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      if (!v.paused) return;
+      v.play()
+        .then(() => log.videoEvent('play', v, { context: 'hero' }))
+        .catch(e => log.warn('Hero muted autoplay blocked', { error: e.name, message: e.message }));
+    };
+
+    kickMuted();
+    v.addEventListener('canplay', kickMuted);
+    v.addEventListener('loadeddata', kickMuted);
+    document.addEventListener('pointerdown', kickMuted, { once: true });
+
     v.addEventListener('error', e => this.handleError(v, e));
     v.addEventListener('stalled', () => log.videoEvent('stalled', v));
     v.addEventListener('waiting', () => log.videoEvent('waiting', v));
