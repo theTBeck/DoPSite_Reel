@@ -22,7 +22,6 @@
   <video
     class="reel-stage-video"
     id="reelPageVideo"
-    src="https://raw.githubusercontent.com/theTBeck/DoPSite_Reel/main/reel_v1_capcut_ritchie_1080p.mp4"
     poster="assets/posters/reel-v4.jpg"
     autoplay muted loop playsinline preload="auto"></video>
 </main>
@@ -37,13 +36,17 @@
   <span class="hero-audio-btn-label">AUDIO</span>
 </button>
 
-<script>
+<script type="module">
+import { detectLocalOrigin, toLocal } from "./js/local-bridge.js";
+
+const origin = await detectLocalOrigin();
 (() => {
   const v = document.getElementById("reelPageVideo");
   const audioBtn = document.getElementById("reelAudioBtn");
   const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
   const backBtn = document.getElementById("reelBackBtn");
   if (!v) return;
+  if (origin) v.src = toLocal(origin, "reel_v1_capcut_ritchie_1080p.mp4");
 
   const goBack = () => {
     v.pause();

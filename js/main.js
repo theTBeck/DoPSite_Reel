@@ -2,6 +2,17 @@
    CINE BECK — interações
    ============================================================ */
 
+import { detectLocalOrigin, toLocal } from "./local-bridge.js";
+
+const LOCAL_ORIGIN = await detectLocalOrigin();
+const absLocal = (href) => (LOCAL_ORIGIN ? toLocal(LOCAL_ORIGIN, href) : href);
+
+if (LOCAL_ORIGIN) {
+  document.querySelectorAll("a.card[href*='.mp4']").forEach((card) => {
+    card.setAttribute("href", absLocal(card.getAttribute("href")));
+  });
+}
+
 /* ---------- header: fundo ao rolar + slate scrollspy ---------- */
 const head = document.getElementById("siteHead");
 const slate = document.getElementById("headSlate");
@@ -105,6 +116,16 @@ const resumeAudioCtx = () => {
 
 /* ---------- vídeo do hero: autoplay com trilha + mute manual (versão estável) ---------- */
 const video = document.getElementById("heroVideo");
+if (LOCAL_ORIGIN && video) {
+  video.src = absLocal("reel_v1_capcut_ritchie_1080p.mp4");
+  video.muted = true;
+  video.defaultMuted = true;
+  video.setAttribute("muted", "");
+}
+const reelMasterEarly = document.getElementById("reelMasterVideo");
+if (LOCAL_ORIGIN && reelMasterEarly) {
+  reelMasterEarly.src = absLocal("reel_v1_capcut_ritchie_1080p.mp4");
+}
 const restorePoster = (el) => {
   if (!el) return;
   el.addEventListener("error", () => {
@@ -409,7 +430,7 @@ const closeFilmPlayer = () => {
 const openFilmPlayer = (src) => {
   filmReturnY = window.scrollY || 0;
   resumeAudioCtx();
-  if (src && /^https?:/i.test(src) && !src.startsWith(location.origin)) {
+  if (src && /^https?:/i.test(src) && !src.startsWith(location.origin) && !/^https:\/\/(127\.0\.0\.1|localhost)(:\d+)?\//i.test(src)) {
     filmVideo.crossOrigin = "anonymous";
   }
   filmVideo.src = src;
