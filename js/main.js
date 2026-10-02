@@ -105,6 +105,17 @@ const resumeAudioCtx = () => {
 
 /* ---------- vídeo do hero: autoplay com trilha + mute manual (versão estável) ---------- */
 const video = document.getElementById("heroVideo");
+const restorePoster = (el) => {
+  if (!el) return;
+  el.addEventListener("error", () => {
+    if (el.error && el.error.code) {
+      el.removeAttribute("src");
+      try { el.load(); } catch (_) {}
+    }
+  });
+};
+restorePoster(video);
+restorePoster(document.getElementById("reelMasterVideo"));
 const audioBtn = document.getElementById("heroAudioBtn");
 const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
 
@@ -246,8 +257,8 @@ filmPlayer.className = "film-player";
 filmPlayer.id = "filmPlayer";
 filmPlayer.setAttribute("hidden", "");
 filmPlayer.innerHTML = `
-  <button type="button" class="site-back" id="filmPlayerBack" aria-label="THE LIGHT BREAKS WERE IS NO SHUNSHINE [VOLTE] — voltar à página anterior">
-    <span class="site-back-phrase">THE LIGHT BREAKS WERE IS NO SHUNSHINE</span>
+  <button type="button" class="site-back" id="filmPlayerBack" aria-label="THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE [VOLTE] — voltar à página anterior">
+    <span class="site-back-phrase">THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE</span>
     <span class="site-back-volte">[VOLTE]</span>
   </button>
   <video class="film-player-video" id="filmPlayerVideo" playsinline preload="auto"></video>
@@ -309,12 +320,80 @@ const silenceOtherAudio = (except) => {
   if (except !== filmVideo) syncFilmAudioBtn();
 };
 
+const VIMEO_BY_FILE = {
+  "HistoriaDavi-doc.mp4": "907524644",
+  "Amazon-Rally.mp4": "993231887",
+  "NikeFootbal.mp4": "394934272",
+  "Exilados-doc.mp4": "993225139",
+  "Exilio.mp4": "271225511",
+  "Hondad-Reality01.mp4": "995137587",
+  "Honda-Reality02.mp4": "995141282",
+  "Honda-Reality03.mp4": "995142497",
+  "SteveSpigel-curtasequenciq.mp4": "995125769",
+  "Coletanea.mp4": "995121205",
+  "Curta-desaparecido.mp4": "643207792",
+  "AdidasPharrel.mp4": "335950430",
+  "AlphaRomeu.mp4": "286706361",
+  "Bancodobrasil.mp4": "238272652",
+  "Buscopam.mp4": "1154088646",
+  "Cannon-Amor.mp4": "1129287804",
+  "Cupnoodles.mp4": "387761952",
+  "Epson-canudos.mp4": "1152351008",
+  "Granola.mp4": "317320183",
+  "Indaia.mp4": "358948347",
+  "Jeep-RENEGADE.mp4": "685965694",
+  "JeepGladiator.mp4": "768715500",
+  "Marisa.mp4": "296919700",
+  "Ora3GWM.mp4": "901557525",
+  "Serasa-detetive.mp4": "1024875059",
+  "Sonic-TELECINE.mp4": "768766085",
+  "SonyBRAVIA.mp4": "394995301",
+  "TataExa.mp4": "286706315",
+  "Tim-Genius.mp4": "1123868540",
+};
+
+const vimeoIdFor = (src) => {
+  if (!src) return "";
+  let name = String(src).split("?")[0].split("/").pop();
+  try { name = decodeURIComponent(name); } catch (_) {}
+  return VIMEO_BY_FILE[name] || "";
+};
+
+let filmFrame = null;
+const clearFilmFrame = () => {
+  if (filmFrame) {
+    filmFrame.remove();
+    filmFrame = null;
+  }
+  if (filmVideo) filmVideo.hidden = false;
+};
+
+const showFilmVimeo = (id) => {
+  clearFilmFrame();
+  try { filmVideo.pause(); } catch (_) {}
+  filmVideo.hidden = true;
+  filmFrame = document.createElement("iframe");
+  filmFrame.className = "film-player-embed";
+  filmFrame.src = "https://player.vimeo.com/video/" + id + "?autoplay=1&title=0&byline=0&portrait=0";
+  filmFrame.allow = "autoplay; fullscreen; picture-in-picture";
+  filmFrame.setAttribute("allowfullscreen", "");
+  filmFrame.title = "Filme";
+  filmPlayer.appendChild(filmFrame);
+};
+
+filmVideo.addEventListener("error", () => {
+  if (!filmPlayer.classList.contains("is-open")) return;
+  const id = vimeoIdFor(filmVideo.currentSrc || filmVideo.getAttribute("src") || "");
+  if (id) showFilmVimeo(id);
+});
+
 const closeFilmPlayer = () => {
+  filmPlayer.classList.remove("is-open");
+  clearFilmFrame();
   if (filmBus) filmBus.setWanted(false);
   filmVideo.pause();
   filmVideo.removeAttribute("src");
   filmVideo.load();
-  filmPlayer.classList.remove("is-open");
   filmPlayer.setAttribute("hidden", "");
   document.body.classList.remove("film-open");
   document.body.style.overflow = "";
