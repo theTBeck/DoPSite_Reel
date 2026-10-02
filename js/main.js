@@ -4,14 +4,9 @@
 
 import { detectLocalOrigin, toLocal } from "./local-bridge.js";
 
-const LOCAL_ORIGIN = await detectLocalOrigin();
-const absLocal = (href) => (LOCAL_ORIGIN ? toLocal(LOCAL_ORIGIN, href) : href);
-
-if (LOCAL_ORIGIN) {
-  document.querySelectorAll("a.card[href*='.mp4']").forEach((card) => {
-    card.setAttribute("href", absLocal(card.getAttribute("href")));
-  });
-}
+let LOCAL_ORIGIN = "";
+const localReady = detectLocalOrigin();
+localReady.then((origin) => { LOCAL_ORIGIN = origin || ""; });
 
 /* ---------- header: fundo ao rolar + slate scrollspy ---------- */
 const head = document.getElementById("siteHead");
@@ -116,16 +111,6 @@ const resumeAudioCtx = () => {
 
 /* ---------- vídeo do hero: autoplay com trilha + mute manual (versão estável) ---------- */
 const video = document.getElementById("heroVideo");
-if (LOCAL_ORIGIN && video) {
-  video.src = absLocal("reel_v1_capcut_ritchie_1080p.mp4");
-  video.muted = true;
-  video.defaultMuted = true;
-  video.setAttribute("muted", "");
-}
-const reelMasterEarly = document.getElementById("reelMasterVideo");
-if (LOCAL_ORIGIN && reelMasterEarly) {
-  reelMasterEarly.src = absLocal("reel_v1_capcut_ritchie_1080p.mp4");
-}
 const restorePoster = (el) => {
   if (!el) return;
   el.addEventListener("error", () => {
@@ -170,6 +155,28 @@ video.play().catch(() => {
   };
   document.addEventListener("pointerdown", unlock, { once: true });
   document.addEventListener("keydown", unlock, { once: true });
+});
+
+localReady.then((origin) => {
+  if (!origin || !video) return;
+  LOCAL_ORIGIN = origin;
+  document.querySelectorAll("a.card[href*='.mp4']").forEach((card) => {
+    const href = card.getAttribute("href");
+    if (href && !/^https?:/i.test(href)) card.setAttribute("href", toLocal(origin, href));
+  });
+  video.src = toLocal(origin, "reel_v1_capcut_ritchie_1080p.mp4");
+  video.muted = true;
+  video.defaultMuted = true;
+  video.setAttribute("muted", "");
+  syncAudioBtn();
+  playHero();
+  const reelEl = document.getElementById("reelMasterVideo");
+  if (reelEl) {
+    reelEl.src = toLocal(origin, "reel_v1_capcut_ritchie_1080p.mp4");
+    reelEl.muted = true;
+    reelEl.defaultMuted = true;
+    reelEl.setAttribute("muted", "");
+  }
 });
 
 if (audioBtn) {
@@ -499,11 +506,13 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 const mp4Cards = document.querySelectorAll("a.card[href*='.mp4']");
 
 mp4Cards.forEach((card) => {
-  card.addEventListener("click", (e) => {
-    const href = card.getAttribute("href");
-    if (!href || !/\.mp4($|\?)/i.test(href)) return;
+  card.addEventListener("click", async (e) => {
+    const hrefAttr = card.getAttribute("href");
+    if (!hrefAttr || !/\.mp4($|\?)/i.test(hrefAttr)) return;
     e.preventDefault();
     e.stopPropagation();
+    const origin = LOCAL_ORIGIN || await localReady;
+    const href = origin && !/^https?:/i.test(hrefAttr) ? toLocal(origin, hrefAttr) : hrefAttr;
     openFilmPlayer(href);
   });
 });

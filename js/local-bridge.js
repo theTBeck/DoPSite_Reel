@@ -2,8 +2,8 @@
 
 const CANDIDATES = ["https://127.0.0.1:4174", "https://localhost:4174"];
 
-export async function detectLocalOrigin(timeoutMs = 1500) {
-  for (const origin of CANDIDATES) {
+export async function detectLocalOrigin(timeoutMs = 8000) {
+  const attempts = CANDIDATES.map(async (origin) => {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
@@ -13,16 +13,17 @@ export async function detectLocalOrigin(timeoutMs = 1500) {
         cache: "no-store",
         signal: ctrl.signal,
       });
-      if (!res.ok) continue;
+      if (!res.ok) return "";
       const data = await res.json();
-      if (data && data.ok) return origin;
+      return data && data.ok ? origin : "";
     } catch (_) {
-      /* servidor local fechado, certificado recusado, ou rede local bloqueada */
+      return "";
     } finally {
       clearTimeout(timer);
     }
-  }
-  return "";
+  });
+  const found = (await Promise.all(attempts)).find(Boolean);
+  return found || "";
 }
 
 export function toLocal(origin, href) {
