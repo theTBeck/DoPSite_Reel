@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class MegaMenu {
+export class MegaMenu {
   constructor() {
     this.btn = null;
     this.menu = null;

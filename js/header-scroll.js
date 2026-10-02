@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class HeaderScroll {
+export class HeaderScroll {
   constructor() {
     this.header = null;
     this.threshold = 24;

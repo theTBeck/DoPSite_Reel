@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class Timecode {
+export class Timecode {
   constructor() {
     this.element = null;
     this.video = null;

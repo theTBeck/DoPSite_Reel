@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class CardPreviewManager {
+export class CardPreviewManager {
   constructor(audioManager, videoManager) {
     this.audio = audioManager;
     this.videoManager = videoManager;

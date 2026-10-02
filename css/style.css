@@ -524,7 +524,8 @@ body.film-open .mega {
   visibility: hidden;
   pointer-events: none;
 }
-.film-player-video {
+.film-player-video,
+.film-player-embed {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -532,6 +533,7 @@ body.film-open .mega {
   object-fit: contain;
   background: #000;
   z-index: 0;
+  border: 0;
 }
 .film-player .site-back {
   z-index: 230;

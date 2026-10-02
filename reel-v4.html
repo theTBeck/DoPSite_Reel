@@ -44,6 +44,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/frames/hero-poster.jpg" />
 <link rel="stylesheet" href="css/style.css" />
 
 <!-- Resource Hints -->
@@ -87,19 +88,24 @@ import { log } from './js/logger.js';
   const backBtn = document.getElementById("reelBackBtn");
   if (!v) return;
 
-  // Attach audio manager (starts muted)
-  const bus = audioManager.attach(v, false);
-  
+  // Native muted autoplay. Web Audio (GainNode) forces muted=false and Chrome
+  // rejects the play, so the bus is created only when the user asks for sound.
+  let bus = null;
+  const ensureBus = (wanted) => {
+    if (!bus) bus = audioManager.attach(v, wanted);
+    return bus;
+  };
+
   const goBack = () => {
     v.pause();
-    bus.setWanted(false);
+    if (bus) bus.setWanted(false);
     if (window.history.length > 1) window.history.back();
     else window.location.href = "index.html#hero";
   };
 
   const syncAudioBtn = () => {
     if (!audioBtn) return;
-    const muted = !bus.isAudible();
+    const muted = bus ? !bus.isAudible() : v.muted;
     audioBtn.classList.toggle("is-muted", muted);
     audioBtn.setAttribute("aria-pressed", String(muted));
     audioBtn.setAttribute("aria-label", muted ? "Ativar som do reel" : "Silenciar reel");
@@ -110,6 +116,8 @@ import { log } from './js/logger.js';
 
   const kickAutoplay = () => {
     v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
     v.volume = 1;
     syncAudioBtn();
     play();
@@ -120,17 +128,6 @@ import { log } from './js/logger.js';
     if (v.paused) kickAutoplay();
   });
 
-  // Gesture unlock
-  const unlock = () => {
-    bus.setWanted(true);
-    v.play().catch(_ => {});
-    document.removeEventListener('pointerdown', unlock, { capture: true });
-    document.removeEventListener('keydown', unlock, { capture: true });
-    syncAudioBtn();
-  };
-  document.addEventListener('pointerdown', unlock, { once: true, capture: true });
-  document.addEventListener('keydown', unlock, { once: true, capture: true });
-
   backBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     goBack();
@@ -138,13 +135,14 @@ import { log } from './js/logger.js';
 
   if (audioBtn) {
     audioBtn.addEventListener("click", () => {
-      const currentlyAudible = bus.isAudible();
-      if (currentlyAudible) {
+      const audible = bus ? bus.isAudible() : !v.muted;
+      if (audible && bus) {
         bus.setWanted(false);
       } else {
         audioManager.resume();
+        const active = ensureBus(true);
         v.muted = false;
-        bus.setWanted(true);
+        active.setWanted(true);
         v.play().catch(_ => {});
       }
       syncAudioBtn();
@@ -159,12 +157,13 @@ import { log } from './js/logger.js';
       else v.pause();
     }
     if (e.key.toLowerCase() === "m") {
-      const currentlyAudible = bus.isAudible();
-      if (currentlyAudible) bus.setWanted(false);
+      const audible = bus ? bus.isAudible() : !v.muted;
+      if (audible && bus) bus.setWanted(false);
       else {
         audioManager.resume();
+        const active = ensureBus(true);
         v.muted = false;
-        bus.setWanted(true);
+        active.setWanted(true);
         v.play().catch(_ => {});
       }
       syncAudioBtn();
@@ -173,7 +172,7 @@ import { log } from './js/logger.js';
 
   window.addEventListener("pagehide", () => {
     v.pause();
-    bus.setWanted(false);
+    if (bus) bus.setWanted(false);
   });
 })();
 </script>

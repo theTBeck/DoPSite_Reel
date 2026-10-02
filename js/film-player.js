@@ -5,7 +5,46 @@
 
 import { log } from './logger.js';
 
-class FilmPlayer {
+const VIMEO_BY_FILE = {
+  'HistoriaDavi-doc.mp4': '907524644',
+  'Amazon-Rally.mp4': '993231887',
+  'NikeFootbal.mp4': '394934272',
+  'Exilados-doc.mp4': '993225139',
+  'Exilio.mp4': '271225511',
+  'Hondad-Reality01.mp4': '995137587',
+  'Honda-Reality02.mp4': '995141282',
+  'Honda-Reality03.mp4': '995142497',
+  'SteveSpigel-curtasequenciq.mp4': '995125769',
+  'Coletanea.mp4': '995121205',
+  'Curta-desaparecido.mp4': '643207792',
+  'AdidasPharrel.mp4': '335950430',
+  'AlphaRomeu.mp4': '286706361',
+  'Bancodobrasil.mp4': '238272652',
+  'Buscopam.mp4': '1154088646',
+  'Cannon-Amor.mp4': '1129287804',
+  'Cupnoodles.mp4': '387761952',
+  'Epson-canudos.mp4': '1152351008',
+  'Granola.mp4': '317320183',
+  'Indaia.mp4': '358948347',
+  'Jeep-RENEGADE.mp4': '685965694',
+  'JeepGladiator.mp4': '768715500',
+  'Marisa.mp4': '296919700',
+  'Ora3GWM.mp4': '901557525',
+  'Serasa-detetive.mp4': '1024875059',
+  'Sonic-TELECINE.mp4': '768766085',
+  'SonyBRAVIA.mp4': '394995301',
+  'TataExa.mp4': '286706315',
+  'Tim-Genius.mp4': '1123868540'
+};
+
+const vimeoIdFor = (src) => {
+  if (!src) return '';
+  let name = String(src).split('?')[0].split('/').pop();
+  try { name = decodeURIComponent(name); } catch (_) {}
+  return VIMEO_BY_FILE[name] || '';
+};
+
+export class FilmPlayer {
   constructor(audioManager, videoManager) {
     this.audio = audioManager;
     this.videoManager = videoManager;
@@ -34,7 +73,7 @@ class FilmPlayer {
         <span class="site-back-phrase">THE LIGHT BREAKS WHERE THERE IS NO SUNSHINE</span>
         <span class="site-back-volte">[VOLTE]</span>
       </button>
-      <video class="film-player-video" id="filmPlayerVideo" playsinline preload="auto"></video>
+      <video class="film-player-video" id="filmPlayerVideo" controls playsinline preload="auto"></video>
       <button type="button" class="hero-audio-btn" id="filmPlayerAudioBtn" aria-pressed="false" aria-label="Silenciar filme">
         <span class="hero-audio-btn-ico" aria-hidden="true"></span>
         <span class="hero-audio-btn-label">AUDIO</span>
@@ -91,7 +130,34 @@ class FilmPlayer {
     this.video?.addEventListener('play', () => log.videoEvent('play', this.video, { context: 'film-player' }));
     this.video?.addEventListener('pause', () => log.videoEvent('pause', this.video, { context: 'film-player' }));
     this.video?.addEventListener('ended', () => log.videoEvent('ended', this.video, { context: 'film-player' }));
-    this.video?.addEventListener('error', e => log.error('FilmPlayer video error', { error: this.video.error?.code }));
+    this.video?.addEventListener('error', () => {
+      log.error('FilmPlayer video error', { error: this.video.error?.code, src: this.video.currentSrc || this.video.src });
+      if (!this.isOpen) return;
+      const id = vimeoIdFor(this.video.currentSrc || this.video.getAttribute('src') || '');
+      if (id) this.showVimeo(id);
+    });
+  }
+
+  showVimeo(id) {
+    this.clearVimeo();
+    try { this.video.pause(); } catch (_) {}
+    this.video.hidden = true;
+    const frame = document.createElement('iframe');
+    frame.className = 'film-player-embed';
+    frame.src = `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`;
+    frame.allow = 'autoplay; fullscreen; picture-in-picture';
+    frame.setAttribute('allowfullscreen', '');
+    frame.title = 'Filme';
+    this.player.appendChild(frame);
+    this.frame = frame;
+  }
+
+  clearVimeo() {
+    if (this.frame) {
+      this.frame.remove();
+      this.frame = null;
+    }
+    if (this.video) this.video.hidden = false;
   }
   
   open(src) {
@@ -149,11 +215,11 @@ class FilmPlayer {
       this.bus = null;
     }
     
+    this.player.classList.remove('is-open');
+    this.clearVimeo();
     this.video.pause();
     this.video.removeAttribute('src');
     this.video.load();
-    
-    this.player.classList.remove('is-open');
     this.player.hidden = true;
     document.body.classList.remove('film-open');
     document.body.style.overflow = '';

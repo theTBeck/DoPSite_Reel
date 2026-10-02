@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class ScrollSpy {
+export class ScrollSpy {
   constructor() {
     this.slate = null;
     this.sections = [];

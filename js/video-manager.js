@@ -6,7 +6,7 @@
 import { log } from './logger.js';
 import { audioManager } from './audio-manager.js';
 
-class VideoManager {
+export class VideoManager {
   constructor(audioManager) {
     this.audio = audioManager;
     this.elements = new Set();
@@ -71,13 +71,16 @@ class VideoManager {
     this.track(v);
     // Stay on the native muted flag so Chrome allows autoplay.
     // Do not route this clip through AudioManager (GainNode forces muted=false).
+    // Src is assigned only when the section is on screen, so this element
+    // does not pause the same reel file the hero is already playing.
+    const src = v.getAttribute('data-src') || v.getAttribute('src');
     v.muted = true;
     v.defaultMuted = true;
     v.setAttribute('muted', '');
     v.volume = 1;
     v.loop = true;
     v.playsInline = true;
-    v.preload = 'auto';
+    v.preload = 'none';
 
     const section = document.getElementById('reel') || v;
     let inView = false;
@@ -86,7 +89,8 @@ class VideoManager {
       v.muted = true;
       v.defaultMuted = true;
       v.setAttribute('muted', '');
-      if (!inView) return;
+      if (!inView || !src) return;
+      if (!v.getAttribute('src')) v.src = src;
       v.play().then(() => log.videoEvent('play', v, { context: 'reel-master' }))
         .catch(e => log.warn('Reel muted autoplay blocked', { error: e.name, message: e.message }));
     };
@@ -95,7 +99,7 @@ class VideoManager {
       entries.forEach(en => {
         inView = en.isIntersecting;
         if (inView) kickMuted();
-        else {
+        else if (!v.paused) {
           v.pause();
           log.videoEvent('pause', v, { reason: 'intersection-exit' });
         }

@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class BrandEvolution {
+export class BrandEvolution {
   constructor() {
     this.brand = null;
     this.timeoutId = null;

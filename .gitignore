@@ -40,3 +40,4 @@ yarn-error.log*
 # Local development
 local-*.md
 *.local.*
+bridge/certs/

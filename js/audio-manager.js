@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class AudioManager {
+export class AudioManager {
   constructor() {
     this.ctx = null;
     this.initialized = false;
@@ -100,7 +100,10 @@ class AudioManager {
           try { this.gain.disconnect(); } catch (_) {}
           this.gain = null;
         }
-        this.mediaElements.delete(this.el);
+        if (this._observer) {
+          try { this._observer.disconnect(); } catch (_) {}
+          this._observer = null;
+        }
       }
     };
     
@@ -126,8 +129,15 @@ class AudioManager {
     videoEl.defaultPlaybackRate = 1;
     videoEl.playbackRate = 1;
     
+    const registry = this.mediaElements;
+    const drop = bus.destroy.bind(bus);
+    bus.destroy = () => {
+      drop();
+      registry.delete(videoEl);
+    };
+
     bus.apply();
-    this.mediaElements.set(videoEl, bus);
+    registry.set(videoEl, bus);
     
     // Clean up on element removal
     const observer = new MutationObserver(() => {

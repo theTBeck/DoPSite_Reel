@@ -5,7 +5,7 @@
 
 import { log } from './logger.js';
 
-class RevealManager {
+export class RevealManager {
   constructor() {
     this.observer = null;
     this.elements = [];
