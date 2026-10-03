@@ -2,11 +2,7 @@
    CINE BECK — interações
    ============================================================ */
 
-import { detectLocalOrigin, toLocal } from "./local-bridge.js";
-
-let LOCAL_ORIGIN = "";
-const localReady = detectLocalOrigin();
-localReady.then((origin) => { LOCAL_ORIGIN = origin || ""; });
+import { filmUrl } from "./film-hosts.js";
 
 /* ---------- header: fundo ao rolar + slate scrollspy ---------- */
 const head = document.getElementById("siteHead");
@@ -111,6 +107,8 @@ const resumeAudioCtx = () => {
 
 /* ---------- vídeo do hero: autoplay com trilha + mute manual (versão estável) ---------- */
 const video = document.getElementById("heroVideo");
+const heroSrc = filmUrl("reel_v1_capcut_ritchie_1080p.mp4");
+if (heroSrc) video.src = heroSrc;
 const restorePoster = (el) => {
   if (!el) return;
   el.addEventListener("error", () => {
@@ -155,28 +153,6 @@ video.play().catch(() => {
   };
   document.addEventListener("pointerdown", unlock, { once: true });
   document.addEventListener("keydown", unlock, { once: true });
-});
-
-localReady.then((origin) => {
-  if (!origin || !video) return;
-  LOCAL_ORIGIN = origin;
-  document.querySelectorAll("a.card[href*='.mp4']").forEach((card) => {
-    const href = card.getAttribute("href");
-    if (href && !/^https?:/i.test(href)) card.setAttribute("href", toLocal(origin, href));
-  });
-  video.src = toLocal(origin, "reel_v1_capcut_ritchie_1080p.mp4");
-  video.muted = true;
-  video.defaultMuted = true;
-  video.setAttribute("muted", "");
-  syncAudioBtn();
-  playHero();
-  const reelEl = document.getElementById("reelMasterVideo");
-  if (reelEl) {
-    reelEl.src = toLocal(origin, "reel_v1_capcut_ritchie_1080p.mp4");
-    reelEl.muted = true;
-    reelEl.defaultMuted = true;
-    reelEl.setAttribute("muted", "");
-  }
 });
 
 if (audioBtn) {
@@ -250,6 +226,8 @@ document.querySelectorAll(".rv").forEach((el) => revealIO.observe(el));
 /* ---------- reel fullpage: autoplay mudo (antes do Contato) ---------- */
 const reelMaster = document.getElementById("reelMasterVideo");
 if (reelMaster) {
+  const reelSrc = filmUrl("reel_v1_capcut_ritchie_1080p.mp4");
+  if (reelSrc) reelMaster.src = reelSrc;
   const kickMuted = () => {
     reelMaster.muted = true;
     reelMaster.defaultMuted = true;
@@ -378,6 +356,8 @@ const VIMEO_BY_FILE = {
   "SonyBRAVIA.mp4": "394995301",
   "TataExa.mp4": "286706315",
   "Tim-Genius.mp4": "1123868540",
+  "Hidro.mp4": "175460791",
+  "Rico Joao.mp4": "271158543",
 };
 
 const vimeoIdFor = (src) => {
@@ -506,14 +486,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 const mp4Cards = document.querySelectorAll("a.card[href*='.mp4']");
 
 mp4Cards.forEach((card) => {
-  card.addEventListener("click", async (e) => {
+  card.addEventListener("click", (e) => {
     const hrefAttr = card.getAttribute("href");
     if (!hrefAttr || !/\.mp4($|\?)/i.test(hrefAttr)) return;
     e.preventDefault();
     e.stopPropagation();
-    const origin = LOCAL_ORIGIN || await localReady;
-    const href = origin && !/^https?:/i.test(hrefAttr) ? toLocal(origin, hrefAttr) : hrefAttr;
-    openFilmPlayer(href);
+    openFilmPlayer(filmUrl(hrefAttr) || hrefAttr);
   });
 });
 
@@ -539,7 +517,9 @@ if (finePointer && !reduceMotion) {
       /* com trilha ativa, não dispara preview — poupa CPU */
       if ((video && !video.muted) || filmBus?.isAudible()) return;
       if (!armed) {
-        preview.src = card.getAttribute("data-preview") || card.getAttribute("href");
+        const previewSrc = card.getAttribute("data-preview");
+        if (!previewSrc) return;
+        preview.src = previewSrc;
         armed = true;
       }
       preview.muted = true;

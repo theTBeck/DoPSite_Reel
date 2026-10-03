@@ -37,16 +37,16 @@
 </button>
 
 <script type="module">
-import { detectLocalOrigin, toLocal } from "./js/local-bridge.js";
+import { filmUrl } from "./js/film-hosts.js";
 
-const origin = await detectLocalOrigin();
 (() => {
   const v = document.getElementById("reelPageVideo");
   const audioBtn = document.getElementById("reelAudioBtn");
   const audioLabel = audioBtn?.querySelector(".hero-audio-btn-label");
   const backBtn = document.getElementById("reelBackBtn");
   if (!v) return;
-  if (origin) v.src = toLocal(origin, "reel_v1_capcut_ritchie_1080p.mp4");
+  const reelSrc = filmUrl("reel_v1_capcut_ritchie_1080p.mp4");
+  if (reelSrc) v.src = reelSrc;
 
   const goBack = () => {
     v.pause();
