@@ -1,0 +1,70 @@
+93012416 ok reel_v1_capcut_ritchie_1080p.mp4
+87302007 ok HistoriaDavi-doc.mp4
+85601132 ok Amazon-Rally.mp4
+89706624 ok NikeFootbal.mp4
+90400481 ok Exilados-doc.mp4
+81525256 ok Exilio.mp4
+89730383 ok Hondad-Reality01.mp4
+87265887 ok Honda-Reality02.mp4
+89588922 ok Honda-Reality03.mp4
+89142910 ok SteveSpigel-curtasequenciq.mp4
+83866887 ok Coletanea.mp4
+88277034 ok Curta-desaparecido.mp4
+7034139 ok AdidasPharrel.mp4
+21087308 ok AlphaRomeu.mp4
+22841082 ok Bancodobrasil.mp4
+9734767 ok Buscopam.mp4
+47727428 ok Cannon-Amor.mp4
+12474059 ok Cupnoodles.mp4
+18866914 ok Epson-canudos.mp4
+18669506 ok Granola.mp4
+54295929 ok Hidro.mp4
+21707860 ok Indaia.mp4
+71660018 ok Jeep-RENEGADE.mp4
+88357179 ok JeepGladiator.mp4
+53880847 ok Marisa.mp4
+20368934 ok Ora3GWM.mp4
+15761949 ok Rico Joao.mp4
+33395181 ok Serasa-detetive.mp4
+43288399 ok Sonic-TELECINE.mp4
+23904146 ok SonyBRAVIA.mp4
+44008315 ok TataExa.mp4
+27343322 ok Tim-Genius.mp4
+41775053 ok Zaxy.mp4
+BINS 3
+BIN 1 BYTES 859813885
+  reel_v1_capcut_ritchie_1080p.mp4
+  Exilados-doc.mp4
+  Hondad-Reality01.mp4
+  NikeFootbal.mp4
+  Honda-Reality03.mp4
+  SteveSpigel-curtasequenciq.mp4
+  JeepGladiator.mp4
+  Curta-desaparecido.mp4
+  HistoriaDavi-doc.mp4
+  Hidro.mp4
+BIN 2 BYTES 858518242
+  Honda-Reality02.mp4
+  Amazon-Rally.mp4
+  Coletanea.mp4
+  Exilio.mp4
+  Jeep-RENEGADE.mp4
+  Marisa.mp4
+  Cannon-Amor.mp4
+  TataExa.mp4
+  Sonic-TELECINE.mp4
+  Zaxy.mp4
+  Serasa-detetive.mp4
+  Tim-Genius.mp4
+  SonyBRAVIA.mp4
+  Bancodobrasil.mp4
+  Indaia.mp4
+  AlphaRomeu.mp4
+  Ora3GWM.mp4
+  Epson-canudos.mp4
+  Granola.mp4
+  Buscopam.mp4
+BIN 3 BYTES 35270147
+  Rico Joao.mp4
+  Cupnoodles.mp4
+  AdidasPharrel.mp4
